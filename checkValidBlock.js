@@ -1,5 +1,5 @@
 const merkle = require("merkle");
-const { Blocks, getLastBlock, createHash, nextBlock } = require('./block');
+const { Blocks, getLastBlock, createHash } = require('./block');
 
 function isValidBlockStructure(block) {
   return typeof(block.header.version) === 'string'
@@ -37,7 +37,6 @@ function addBlock(newBlock) {
   return false;
 }
 
-const block = nextBlock(['transaction1']);
-addBlock(block);
-
-console.log(Blocks);
+module.exports = {
+  addBlock,
+}

@@ -83,5 +83,7 @@ module.exports = {
   Blocks,
   getLastBlock,
   createHash,
+  getBlocks,
+  getVersion,
   nextBlock,
 }

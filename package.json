@@ -4,7 +4,7 @@
   "description": "비트코인 블록체인 프로젝트",
   "main": "httpServer.js",
   "scripts": {
-    "start": "nodemon block.js"
+    "start": "nodemon httpServer.js"
   },
   "repository": {
     "type": "git",
