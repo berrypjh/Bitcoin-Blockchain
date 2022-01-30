@@ -1,0 +1,22 @@
+{
+  "name": "bitcoin-blockchain",
+  "version": "1.0.0",
+  "description": "비트코인 블록체인 프로젝트",
+  "main": "block.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berrypjh/Bitcoin-Blockchain.git"
+  },
+  "author": "berrypjh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/berrypjh/Bitcoin-Blockchain/issues"
+  },
+  "homepage": "https://github.com/berrypjh/Bitcoin-Blockchain#readme",
+  "dependencies": {
+    "merkle": "^0.6.0"
+  }
+}
