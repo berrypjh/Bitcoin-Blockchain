@@ -2,9 +2,9 @@
   "name": "bitcoin-blockchain",
   "version": "1.0.0",
   "description": "비트코인 블록체인 프로젝트",
-  "main": "block.js",
+  "main": "httpServer.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon block.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,10 @@
   "homepage": "https://github.com/berrypjh/Bitcoin-Blockchain#readme",
   "dependencies": {
     "crypto-js": "^4.1.1",
+    "express": "^4.17.2",
     "merkle": "^0.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
