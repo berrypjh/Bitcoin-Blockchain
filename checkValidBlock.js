@@ -1,16 +1,16 @@
 const merkle = require("merkle");
 const { Blocks, getLastBlock, createHash } = require('./block');
 
-function isValidBlockStructure(block) {
+const isValidBlockStructure = (block) => {
   return typeof(block.header.version) === 'string'
     && typeof(block.header.index) === 'number'
     && typeof(block.header.previousHash) === 'string'
     && typeof(block.header.timestamp) === 'number'
     && typeof(block.header.merkleRoot) === 'string'
     && typeof(block.body) === 'object'
-}
+};
 
-function isValidNewBlock(newBlock, previousBlock) {
+const isValidNewBlock = (newBlock, previousBlock) => {
   if (isValidBlockStructure(newBlock) === false) {
     console.log('Invalid Block Structure');
     return false;
@@ -24,19 +24,19 @@ function isValidNewBlock(newBlock, previousBlock) {
     newBlock.body.length !== 0 && (merkle("sha256").sync(newBlock.body).root() !== newBlock.header.merkleRoot)) {
       console.log('Invalid merkleRoot');
       return false;
-  }
+  };
   
   return true;
-}
+};
 
-function addBlock(newBlock) {
+const addBlock = (newBlock) => {
   if (isValidNewBlock(newBlock, getLastBlock())) {
     Blocks.push(newBlock)
     return true;
-  }
+  };
   return false;
-}
+};
 
 module.exports = {
   addBlock,
-}
+};
