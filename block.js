@@ -155,13 +155,32 @@ const sumDifficulty = (anyBlockchain) =>{
     .reduce((a, b) => a + b);
 };
 
+const isValidChain = (blockchainToValidate) => {
+  const { isValidNewBlock } = require('./checkValidBlock');
+
+  const isValidGenesis = (block) => {
+    return JSON.stringify(block) === JSON.stringify(createGenesisBlock());
+  };
+
+  if (!isValidGenesis(blockchainToValidate[0])) {
+    return false;
+  };
+
+  for (let i = 1; i < blockchainToValidate.length; i++) {
+    if (!isValidNewBlock(blockchainToValidate[i], blockchainToValidate[i - 1])) {
+      return false;
+    };
+  };
+
+  return true;
+};
+
 const replaceChain = (candidateChain) => {
   const { broadcast, responseLatestMsg } = require("./p2pServer");
 
   // const foreignUTxOuts = isChainValid(candidateChain);
   // const validChain = foreignUTxOuts !== null;
-  if (sumDifficulty(candidateChain) > sumDifficulty(getBlocks())) {
-    console.log(111111111111111111);
+  if (isValidChain(candidateChain) && sumDifficulty(candidateChain) > sumDifficulty(getBlocks())) {
     Blocks = candidateChain;
     // unspentTxOuts = foreignUTxOuts;
     // updateMempool(unspentTxOuts);
