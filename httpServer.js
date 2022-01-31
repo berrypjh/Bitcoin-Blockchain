@@ -1,6 +1,7 @@
 const express = require("express");
 const { addBlock, getBlocks, getVersion, nextBlock } = require("./block");
 const { initP2PServer, connectToPeers, getSockets } = require("./p2pServer");
+const { initWallet } = require("./wallet");
 
 const HTTP_PORT = process.env.HTTP_PORT || 4000;
 const P2P_PORT = process.env.P2P_PORT || 6000;
@@ -51,3 +52,4 @@ const initHttpServer = () => {
 
 initHttpServer();
 initP2PServer(P2P_PORT);
+initWallet();

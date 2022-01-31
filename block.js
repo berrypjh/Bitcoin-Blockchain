@@ -160,8 +160,6 @@ const replaceChain = (candidateChain) => {
 
   // const foreignUTxOuts = isChainValid(candidateChain);
   // const validChain = foreignUTxOuts !== null;
-  console.log(sumDifficulty(candidateChain));
-  console.log(sumDifficulty(getBlocks()));
   if (sumDifficulty(candidateChain) > sumDifficulty(getBlocks())) {
     console.log(111111111111111111);
     Blocks = candidateChain;

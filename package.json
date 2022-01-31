@@ -21,6 +21,7 @@
   "homepage": "https://github.com/berrypjh/Bitcoin-Blockchain#readme",
   "dependencies": {
     "crypto-js": "^4.1.1",
+    "elliptic": "^6.5.4",
     "express": "^4.17.2",
     "hex-to-binary": "^1.0.1",
     "merkle": "^0.6.0",
