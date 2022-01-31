@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 const { WebSocketServer } = require("ws");
-const { getLastBlock, createHash, getBlocks, replaceChain } = require("./block");
-const { addBlock, isValidBlockStructure } = require("./checkValidBlock");
+const { addBlock, getLastBlock, createHash, getBlocks, replaceChain } = require("./block");
+const { isValidBlockStructure } = require("./checkValidBlock");
 
 const initP2PServer = (ws_port) => {
   const server = new WebSocketServer({ port: ws_port });

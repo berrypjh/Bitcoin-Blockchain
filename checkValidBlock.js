@@ -1,5 +1,5 @@
 const merkle = require("merkle");
-const { Blocks, getLastBlock, createHash } = require('./block');
+const { createHash, getTimestamp } = require('./block');
 
 const isValidBlockStructure = (block) => {
   return typeof(block.header.version) === 'string'
@@ -7,6 +7,8 @@ const isValidBlockStructure = (block) => {
     && typeof(block.header.previousHash) === 'string'
     && typeof(block.header.timestamp) === 'number'
     && typeof(block.header.merkleRoot) === 'string'
+    && typeof(block.header.difficulty) === 'number'
+    && typeof(block.header.nonce) === 'number'
     && typeof(block.body) === 'object'
 };
 
@@ -24,23 +26,22 @@ const isValidNewBlock = (newBlock, previousBlock) => {
     newBlock.body.length !== 0 && (merkle("sha256").sync(newBlock.body).root() !== newBlock.header.merkleRoot)) {
       console.log('Invalid merkleRoot');
       return false;
+  } else if (!isValidTimestamp(newBlock, previousBlock)) {
+    console.log("Invalid Timestamp");
+    return false;
   };
-  
+    
   return true;
 };
 
-const addBlock = (newBlock) => {
-  const { broadcast, responseLatestMsg } = require("./p2pServer");
-  
-  if (isValidNewBlock(newBlock, getLastBlock())) {
-    Blocks.push(newBlock)
-    broadcast(responseLatestMsg());
-    return true;
-  };
-  return false;
+function isValidTimestamp(newBlock, previousBlock) {
+  return (
+    previousBlock.header.timestamp - 60 < newBlock.header.timestamp &&
+    newBlock.header.timestamp - 60 < getTimestamp()
+  );
 };
 
 module.exports = {
-  addBlock,
   isValidBlockStructure,
+  isValidNewBlock,
 };
