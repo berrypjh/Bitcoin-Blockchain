@@ -30,8 +30,11 @@ const isValidNewBlock = (newBlock, previousBlock) => {
 };
 
 const addBlock = (newBlock) => {
+  const { broadcast, responseLatestMsg } = require("./p2pServer");
+  
   if (isValidNewBlock(newBlock, getLastBlock())) {
     Blocks.push(newBlock)
+    broadcast(responseLatestMsg());
     return true;
   };
   return false;
@@ -39,4 +42,5 @@ const addBlock = (newBlock) => {
 
 module.exports = {
   addBlock,
+  isValidBlockStructure,
 };

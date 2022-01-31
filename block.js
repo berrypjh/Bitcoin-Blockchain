@@ -30,7 +30,7 @@ const createGenesisBlock = () => {
   const version = getVersion();
   const index = 0;
   const previousHash = '0'.repeat(64);
-  const timestamp = parseInt(Date.now() / 1000);
+  const timestamp = 1231006505  // 2009/01/03 6:15pm (UTC)
   const body = ['hello block'];
   const tree = merkle('sha256').sync(body);
   const merkleRoot = tree.root() || '0'.repeat(64);
@@ -79,6 +79,22 @@ const addBlock = (bodyData) => {
   Blocks.push(newBlock);
 };
 
+const replaceChain = (candidateChain) => {
+  const { broadcast, responseLatestMsg } = require("./p2pServer");
+
+  // const foreignUTxOuts = isChainValid(candidateChain);
+  // const validChain = foreignUTxOuts !== null;
+  // if (validChain && sumDifficulty(candidateChain) > sumDifficulty(getBlocks())) {
+    Blocks = candidateChain;
+    // unspentTxOuts = foreignUTxOuts;
+    // updateMempool(unspentTxOuts);
+    broadcast(responseLatestMsg());
+    // return true;
+  // } else {
+  //   return false;
+  // }
+};
+
 module.exports = {
   Blocks,
   getLastBlock,
@@ -86,4 +102,5 @@ module.exports = {
   getBlocks,
   getVersion,
   nextBlock,
+  replaceChain,
 };
