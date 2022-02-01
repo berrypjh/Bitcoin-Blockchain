@@ -1,5 +1,5 @@
 const express = require("express");
-const { addBlock, getBlocks, getVersion, newNextBlock } = require("./block");
+const { addBlock, getBlocks, getVersion, newNextBlock, getUnspentTxOuts } = require("./block");
 const { initP2PServer, connectToPeers, getSockets } = require("./p2pServer");
 const { initWallet } = require("./wallet");
 
@@ -12,6 +12,10 @@ const initHttpServer = () => {
 
   app.get("/blocks", (req, res) => {
     res.send(getBlocks());
+  });
+
+  app.get("/utxos", (req, res) => {
+    res.send(getUnspentTxOuts());
   });
 
   app.post("/mineBlock", (req, res) => {

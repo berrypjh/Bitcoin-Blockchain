@@ -1,5 +1,7 @@
 const CryptoJS = require("crypto-js"); 
 
+const COINBASE_AMOUNT = 50;
+
 class TxOut {
   constructor(address, amount) {
     this.address = address; 
@@ -23,6 +25,15 @@ class Transaction {
   };
 };
 
+class UnspentTxOut {
+  constructor(txOutId, txOutIndex, address, amount) {
+    this.txOutId = txOutId;
+    this.txOutIndex = txOutIndex;
+    this.address = address;
+    this.amount = amount;
+  }
+};
+
 const getTransactionId = (transaction) => {
   const txInContent = transaction.txIns
     .map((txIn) => txIn.txOutId + txIn.txOutIndex)
@@ -34,8 +45,6 @@ const getTransactionId = (transaction) => {
 
   return CryptoJS.SHA256(txInContent + txOutContent).toString();
 };
-
-const COINBASE_AMOUNT = 50;
 
 const createCoinbaseTx = (address, blockIndex) => {
   const tx = new Transaction();
@@ -49,6 +58,34 @@ const createCoinbaseTx = (address, blockIndex) => {
   return tx;
 };
 
+const findUnspentTxOut = (txOutId, txOutIndex, uTxOutList) => {
+  return uTxOutList.find(
+    uTxO => uTxO.txOutId === txOutId && uTxO.txOutIndex === txOutIndex
+  );
+};
+
+const updateUnspentTxOuts = (newTransactions, unspentTxOutLists) => {
+  const newUnspentTxOuts = newTransactions
+    .map((tx) =>{
+      return tx.txOuts.map(
+        (txOut, index) => new UnspentTxOut(tx.id, index, txOut.address, txOut.amount)
+      )}
+    )
+    .reduce((a, b) => a.concat(b), []);
+
+  const spentTxOuts = newTransactions
+    .map(tx => tx.txIns)
+    .reduce((a, b) => a.concat(b), [])
+    .map(txIn => new UnspentTxOut(txIn.txOutId, txIn.txOutIndex, "", 0));
+
+  const resultingUnspentTxOuts = unspentTxOutLists
+    .filter(uTxO => !findUnspentTxOut(uTxO.txOutId, uTxO.txOutIndex, spentTxOuts))
+    .concat(newUnspentTxOuts);
+
+  return resultingUnspentTxOuts;
+};
+
 module.exports = {
   createCoinbaseTx,
-}
+  updateUnspentTxOuts,
+};

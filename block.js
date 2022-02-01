@@ -3,7 +3,7 @@ const merkle = require('merkle');
 const cryptojs = require('crypto-js');
 const hexToBinary = require('hex-to-binary');
 const { getPublicKeyFromWallet } = require('./wallet');
-const { createCoinbaseTx } = require('./transaction');
+const { createCoinbaseTx, updateUnspentTxOuts } = require('./transaction');
 
 const BLOCK_GENERATION_INTERVAL = 10;
 const DIFFICULTY_ADJUSMENT_INTERVAL = 10;
@@ -65,6 +65,10 @@ const getBlocks = () => {
   return Blocks;
 };
 
+const getUnspentTxOuts = () => {
+  return unspentTxOuts;
+};
+
 const getLastBlock = () => {
   return Blocks[Blocks.length - 1];
 };
@@ -74,9 +78,19 @@ const addBlock = (newBlock) => {
   const { broadcast, responseLatestMsg } = require("./p2pServer");
   
   if (isValidNewBlock(newBlock, getLastBlock())) {
-    Blocks.push(newBlock);
-    broadcast(responseLatestMsg());
-    return true;
+    const processedTxs = updateUnspentTxOuts(
+      newBlock.body,
+      unspentTxOuts,
+    );
+    if (processedTxs === null) {
+      console.log("Couldnt process txs");
+      return false;
+    } else {
+      Blocks.push(newBlock);
+      unspentTxOuts = processedTxs;
+      broadcast(responseLatestMsg());
+      return true;
+    };
   };
   return false;
 };
@@ -223,4 +237,5 @@ module.exports = {
   replaceChain,
   getTimestamp,
   addBlock,
+  getUnspentTxOuts,
 };
