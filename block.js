@@ -3,7 +3,7 @@ const merkle = require('merkle');
 const cryptojs = require('crypto-js');
 const hexToBinary = require('hex-to-binary');
 const { getPublicKeyFromWallet } = require('./wallet');
-const { createCoinbaseTx, updateUnspentTxOuts } = require('./transaction');
+const { createCoinbaseTx, processTransactions } = require('./transaction');
 
 const BLOCK_GENERATION_INTERVAL = 10;
 const DIFFICULTY_ADJUSMENT_INTERVAL = 10;
@@ -78,7 +78,7 @@ const addBlock = (newBlock) => {
   const { broadcast, responseLatestMsg } = require("./p2pServer");
   
   if (isValidNewBlock(newBlock, getLastBlock())) {
-    const processedTxs = updateUnspentTxOuts(
+    const processedTxs = processTransactions(
       newBlock.body,
       unspentTxOuts,
     );
