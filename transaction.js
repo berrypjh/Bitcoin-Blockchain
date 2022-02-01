@@ -1,4 +1,7 @@
+const ecdsa = require("elliptic");
+const ec = new ecdsa.ec("secp256k1");
 const CryptoJS = require("crypto-js"); 
+const { toHexString } = require("./utils");
 
 const COINBASE_AMOUNT = 50;
 
@@ -85,7 +88,40 @@ const updateUnspentTxOuts = (newTransactions, unspentTxOutLists) => {
   return resultingUnspentTxOuts;
 };
 
+const getPublicKey = (privateKey) => {
+  return ec
+    .keyFromPrivate(privateKey, "hex")
+    .getPublic()
+    .encode("hex");
+};
+
+const signTxIn = (transaction, txInIndex, privateKey, aUnspentTxOuts) => {
+  const txIn = transaction.txIns[txInIndex];
+  const dataToSign = transaction.id;
+
+  const referencedUnspentTxOut = findUnspentTxOut(
+    txIn.txOutId,
+    txIn.txOutIndex,
+    aUnspentTxOuts,
+  );
+
+  if (referencedUnspentTxOut === null || referencedUnspentTxOut === undefined) {
+    throw Error("Couldn't find the referenced uTxOut, not signing");
+  };
+
+  const referencedAddress = referencedUnspentTxOut.address;
+  if (getPublicKey(privateKey) !== referencedAddress) {
+    return false;
+  };
+
+  const key = ec.keyFromPrivate(privateKey, "hex");
+  const signature = toHexString(key.sign(dataToSign).toDER());
+
+  return signature;
+};
+
 module.exports = {
   createCoinbaseTx,
   updateUnspentTxOuts,
+  signTxIn,
 };
