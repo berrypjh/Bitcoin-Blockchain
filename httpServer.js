@@ -1,5 +1,5 @@
 const express = require("express");
-const { addBlock, getBlocks, getVersion, nextBlock } = require("./block");
+const { addBlock, getBlocks, getVersion, newNextBlock } = require("./block");
 const { initP2PServer, connectToPeers, getSockets } = require("./p2pServer");
 const { initWallet } = require("./wallet");
 
@@ -15,8 +15,7 @@ const initHttpServer = () => {
   });
 
   app.post("/mineBlock", (req, res) => {
-    const data = req.body.data || [];
-    const block = nextBlock(data);
+    const block = newNextBlock();
     addBlock(block);
 
     res.send(block);

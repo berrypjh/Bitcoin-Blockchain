@@ -2,6 +2,8 @@ const fs = require('fs');
 const merkle = require('merkle');
 const cryptojs = require('crypto-js');
 const hexToBinary = require('hex-to-binary');
+const { getPublicKeyFromWallet } = require('./wallet');
+const { createCoinbaseTx } = require('./transaction');
 
 const BLOCK_GENERATION_INTERVAL = 10;
 const DIFFICULTY_ADJUSMENT_INTERVAL = 10;
@@ -30,12 +32,21 @@ const getVersion = () => {
   return JSON.parse(package).version;
 };
 
+const genesisTx = {
+  txIns: [{'signature': '', 'txOutId': '', 'txOutIndex': 0}],
+  txOuts: [{
+      'address': '',
+      'amount': 50
+  }],
+  id: '1dd68a2d273df991618f7d4a02d8fe2b79ac131ca6eb0791d5042b99e247918e'
+};
+
 const createGenesisBlock = () => {
   const version = getVersion();
   const index = 0;
   const previousHash = '0'.repeat(64);
   const timestamp = 1231006505  // 2009/01/03 6:15pm (UTC)
-  const body = ['hello block'];
+  const body = [genesisTx];
   const tree = merkle('sha256').sync(body);
   const merkleRoot = tree.root() || '0'.repeat(64);
   const difficulty = 0;
@@ -47,6 +58,8 @@ const createGenesisBlock = () => {
 };
 
 let Blocks = [createGenesisBlock()];
+
+let unspentTxOuts = [];
 
 const getBlocks = () => {
   return Blocks;
@@ -73,6 +86,15 @@ const createHash = (data) => {
   const blockString = version + index + previousHash + timestamp + merkleRoot + difficulty + nonce;
   const hash = cryptojs.SHA256(blockString).toString();
   return hash;
+};
+
+const newNextBlock = () => {
+  const coinbaseTx = createCoinbaseTx(
+    getPublicKeyFromWallet(),
+    getLastBlock().header.index + 1,
+  );
+  const blockData = [coinbaseTx].concat([]);
+  return nextBlock(blockData);
 };
 
 const nextBlock = (bodyData) => {
@@ -197,7 +219,7 @@ module.exports = {
   createHash,
   getBlocks,
   getVersion,
-  nextBlock,
+  newNextBlock,
   replaceChain,
   getTimestamp,
   addBlock,
