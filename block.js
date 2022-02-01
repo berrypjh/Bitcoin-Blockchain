@@ -3,7 +3,8 @@ const merkle = require('merkle');
 const cryptojs = require('crypto-js');
 const hexToBinary = require('hex-to-binary');
 const { getPublicKeyFromWallet } = require('./wallet');
-const { createCoinbaseTx, processTransactions } = require('./transaction');
+const { createCoinbaseTx } = require('./transaction');
+const { processTransactions } = require('./checkValidTx');
 
 const BLOCK_GENERATION_INTERVAL = 10;
 const DIFFICULTY_ADJUSMENT_INTERVAL = 10;
@@ -81,6 +82,7 @@ const addBlock = (newBlock) => {
     const processedTxs = processTransactions(
       newBlock.body,
       unspentTxOuts,
+      newBlock.header.index,
     );
     if (processedTxs === null) {
       console.log("Couldnt process txs");
