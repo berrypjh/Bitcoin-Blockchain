@@ -102,12 +102,12 @@ const createHash = (data) => {
   return hash;
 };
 
-const newNextBlock = () => {
+const newNextBlock = (bodyData) => {
   const coinbaseTx = createCoinbaseTx(
     getPublicKeyFromWallet(),
     getLastBlock().header.index + 1,
   );
-  const blockData = [coinbaseTx].concat([]);
+  const blockData = [coinbaseTx].concat(bodyData);
   return nextBlock(blockData);
 };
 

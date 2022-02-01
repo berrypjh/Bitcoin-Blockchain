@@ -19,7 +19,7 @@ const initHttpServer = () => {
   });
 
   app.post("/mineBlock", (req, res) => {
-    const block = newNextBlock();
+    const block = newNextBlock(req.body.data);
     addBlock(block);
 
     res.send(block);
