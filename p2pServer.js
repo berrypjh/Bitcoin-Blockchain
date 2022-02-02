@@ -52,10 +52,10 @@ const getAllMempool = () => {
   };
 };
 
-const returnMempool = (data) => {
+const returnMempool = () => {
   return {
     type: MessageType.MEMPOOL_RESPONSE,
-    data: JSON.stringify(getMempool()),
+    data: getMempool(),
   };
 };
 

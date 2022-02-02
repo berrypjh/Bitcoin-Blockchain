@@ -38,10 +38,10 @@ const getVersion = () => {
 const genesisTx = {
   txIns: [{'signature': '', 'txOutId': '', 'txOutIndex': 0}],
   txOuts: [{
-    'address': '0480e988939533af908284e32cf0a52f6c3a955989b4dd9f6824a241372c0fa6a1497b2de32b0ee778ac8509792a19b5ce6a1a4f785221d01de575f5d07333fad2',
+    'address': '',
     'amount': 50
   }],
-  id: '2e25978b205dd38581b1bb0201cb79e033d8c074e697402057ea48012f27735f'
+  id: '1dd68a2d273df991618f7d4a02d8fe2b79ac131ca6eb0791d5042b99e247918e'
 };
 
 const createGenesisBlock = () => {
@@ -97,7 +97,6 @@ const addBlock = (newBlock) => {
       Blocks.push(newBlock);
       unspentTxOuts = processedTxs;
       updateMempool(unspentTxOuts);
-      // 아래는 확인 필요 (없어도 되나?)
       broadcast(responseLatestMsg());
       return true;
     };
@@ -233,7 +232,7 @@ const isValidChain = (blockchainToValidate) => {
   let foreignUTxOuts = [];
 
   for (let i = 1; i < blockchainToValidate.length; i++) {
-    const currentBlock = candidateChain[i];
+    const currentBlock = blockchainToValidate[i];
     if (i !== 0 && !isValidNewBlock(blockchainToValidate[i], blockchainToValidate[i - 1])) {
       return null;
     };
