@@ -20,17 +20,10 @@ const initHttpServer = () => {
   });
 
   app.post("/mineBlock", (req, res) => {
-    const address = req.body.address;
-    const amount = req.body.amount;
-    try {
-      const block = newNextBlock(address, amount);
-      addBlock(block);
+    const block = newNextBlock();
+    addBlock(block);
   
-      res.send(block);
-    } catch (e) {
-      console.log(e.message);
-      res.status(400).send(e.message);
-    }
+    res.send(block);
   });
 
   app.get("/version", (req, res) => {
