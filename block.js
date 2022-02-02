@@ -6,7 +6,7 @@ const hexToBinary = require('hex-to-binary');
 const { getPublicKeyFromWallet, getBalance, createTx, getPrivateKeyFromWallet } = require('./wallet');
 const { createCoinbaseTx } = require('./transaction');
 const { processTransactions, isAddressValid } = require('./checkValidTx');
-const { addToMempool, getMempool } = require('./memPool');
+const { addToMempool, getMempool, updateMempool } = require('./memPool');
 
 const BLOCK_GENERATION_INTERVAL = 10;
 const DIFFICULTY_ADJUSMENT_INTERVAL = 10;
@@ -96,6 +96,8 @@ const addBlock = (newBlock) => {
     } else {
       Blocks.push(newBlock);
       unspentTxOuts = processedTxs;
+      updateMempool(unspentTxOuts);
+      // 아래는 확인 필요 (없어도 되나?)
       broadcast(responseLatestMsg());
       return true;
     };
@@ -121,7 +123,7 @@ const newNextBlock = () => {
 };
 
 const sendTx = (address, amount) => {
-  // const { broadcastMempool } = require("../network/networks");
+  const { broadcast, returnMempool } = require("./p2pServer.js");
 
   const tx = createTx(
     address,
@@ -131,7 +133,7 @@ const sendTx = (address, amount) => {
     getMempool()
   );
   addToMempool(tx, unspentTxOuts);
-  // broadcastMempool();
+  broadcast(returnMempool());
   return tx;
 };
 
@@ -256,8 +258,8 @@ const replaceChain = (candidateChain) => {
   const validChain = foreignUTxOuts !== null;
   if (validChain && sumDifficulty(candidateChain) > sumDifficulty(getBlocks())) {
     Blocks = candidateChain;
-    // unspentTxOuts = foreignUTxOuts;
-    // updateMempool(unspentTxOuts);
+    unspentTxOuts = foreignUTxOuts;
+    updateMempool(unspentTxOuts);
     broadcast(responseLatestMsg());
     return true;
   } else {
@@ -265,8 +267,11 @@ const replaceChain = (candidateChain) => {
   };
 };
 
+const handleIncomingTx = tx => {
+  addToMempool(tx, unspentTxOuts);
+};
+
 module.exports = {
-  Blocks,
   getLastBlock,
   createHash,
   getBlocks,
@@ -278,4 +283,5 @@ module.exports = {
   getUnspentTxOuts,
   getAccountBalance,
   sendTx,
+  handleIncomingTx,
 };

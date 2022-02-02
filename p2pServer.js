@@ -1,7 +1,8 @@
 const WebSocket = require("ws");
 const { WebSocketServer } = require("ws");
-const { addBlock, getLastBlock, createHash, getBlocks, replaceChain } = require("./block");
+const { addBlock, getLastBlock, createHash, getBlocks, replaceChain, handleIncomingTx } = require("./block");
 const { isValidBlockStructure } = require("./checkValidBlock");
+const { getMempool } = require("./memPool");
 
 const initP2PServer = (ws_port) => {
   const server = new WebSocketServer({ port: ws_port });
@@ -44,11 +45,33 @@ const responseAllChainMsg = () => {
   };
 };
 
+const getAllMempool = () => {
+  return {
+    type: MessageType.REQUEST_MEMPOOL,
+    data: null,
+  };
+};
+
+const returnMempool = (data) => {
+  return {
+    type: MessageType.MEMPOOL_RESPONSE,
+    data: JSON.stringify(getMempool()),
+  };
+};
+
 const initConnection = (ws) => {
   sockets.push(ws);
   initMessageHandler(ws);
   initErrorHandler(ws);
   write(ws, queryLatestMsg());
+  setTimeout(() => {
+    broadcast(getAllMempool()); // changed line
+  }, 1000);
+  setInterval(() => {
+    if (sockets.includes(ws)) {
+      write(ws, "");
+    }
+  }, 1000);
 };
 
 const getSockets = () => {
@@ -90,6 +113,8 @@ const MessageType = {
   QUERY_LATEST: 0,
   QUERY_ALL: 1,
   RESPONSE_BLOCKCHAIN: 2,
+  REQUEST_MEMPOOL : 3,
+  MEMPOOL_RESPONSE : 4,
 };
 
 const initMessageHandler = (ws) => {
@@ -113,6 +138,23 @@ const initMessageHandler = (ws) => {
           break;
         }
         handleBlockChainResponse(receivedBlocks);
+        break;
+      case MessageType.REQUEST_MEMPOOL:
+        write(ws, returnMempool());
+        break;
+      case MessageType.MEMPOOL_RESPONSE:
+        const receivedTxs = message.data;
+        if (receivedTxs === null) {
+          return;
+        }
+        receivedTxs.forEach(tx => {
+          try {
+            handleIncomingTx(tx);
+            broadcast(returnMempool());
+          } catch (e) {
+            console.log(e);
+          }
+        });
         break;
     };
   });
@@ -161,4 +203,5 @@ module.exports = {
   getSockets,
   broadcast,
   responseLatestMsg,
+  returnMempool,
 };
