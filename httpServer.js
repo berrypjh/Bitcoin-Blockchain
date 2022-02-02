@@ -1,7 +1,7 @@
 const express = require("express");
-const { addBlock, getBlocks, getVersion, newNextBlock, getUnspentTxOuts } = require("./block");
+const { addBlock, getBlocks, getVersion, newNextBlock, getUnspentTxOuts, getAccountBalance } = require("./block");
 const { initP2PServer, connectToPeers, getSockets } = require("./p2pServer");
-const { initWallet } = require("./wallet");
+const { initWallet, getBalance, getPublicKeyFromWallet } = require("./wallet");
 
 const HTTP_PORT = process.env.HTTP_PORT || 4000;
 const P2P_PORT = process.env.P2P_PORT || 6000;
@@ -19,10 +19,17 @@ const initHttpServer = () => {
   });
 
   app.post("/mineBlock", (req, res) => {
-    const block = newNextBlock(req.body.data);
-    addBlock(block);
-
-    res.send(block);
+    const address = req.body.address;
+    const amount = req.body.amount;
+    try {
+      const block = newNextBlock(address, amount);
+      addBlock(block);
+  
+      res.send(block);
+    } catch (e) {
+      console.log(e.message);
+      res.status(400).send(e.message);
+    }
   });
 
   app.get("/version", (req, res) => {
@@ -46,6 +53,21 @@ const initHttpServer = () => {
       sockInfo.push(s._socket.remoteAddress + ":" + s._socket.remotePort);
     });
     res.status(200).json({ peer: sockInfo, success: true });
+  });
+
+  app.get("/address", (req, res) => {
+    res.send(getPublicKeyFromWallet());
+  });
+
+  app.get("/balance", (req, res) => {
+    const balance = getAccountBalance();
+    res.send({ balance });
+  });
+
+  app.get("/address/:address", (req, res) => {
+    const { address } = req.params;
+    const balance = getBalance(address, getUnspentTxOuts());
+    res.send({ balance });
   });
 
   app.listen(HTTP_PORT, () => {

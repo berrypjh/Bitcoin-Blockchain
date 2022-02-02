@@ -74,12 +74,6 @@ const isTxStructureValid = (tx) => {
   }
 };
 
-// const isValidTransactionsStructure = (transactions) => {
-//   return transactions
-//       .map(isTxStructureValid)
-//       .reduce((a, b) => (a && b), true);
-// };
-
 const validateCoinbaseTx = (tx, blockIndex) => {
   if (getTransactionId(tx) !== tx.id) {
     console.log("Invalid Coinbase tx ID");
@@ -201,4 +195,5 @@ const processTransactions = (aTransactions, aUnspentTxOuts, blockIndex) => {
 
 module.exports = {
   processTransactions,
+  isAddressValid,
 };

@@ -128,4 +128,7 @@ module.exports = {
   getTransactionId,
   COINBASE_AMOUNT,
   findUnspentTxOut,
+  TxOut,
+  TxIn,
+  Transaction,
 };

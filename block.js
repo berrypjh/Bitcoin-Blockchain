@@ -1,10 +1,11 @@
 const fs = require('fs');
 const merkle = require('merkle');
 const cryptojs = require('crypto-js');
+const _ = require("lodash");
 const hexToBinary = require('hex-to-binary');
-const { getPublicKeyFromWallet } = require('./wallet');
+const { getPublicKeyFromWallet, getBalance, createTx, getPrivateKeyFromWallet } = require('./wallet');
 const { createCoinbaseTx } = require('./transaction');
-const { processTransactions } = require('./checkValidTx');
+const { processTransactions, isAddressValid } = require('./checkValidTx');
 
 const BLOCK_GENERATION_INTERVAL = 10;
 const DIFFICULTY_ADJUSMENT_INTERVAL = 10;
@@ -36,10 +37,10 @@ const getVersion = () => {
 const genesisTx = {
   txIns: [{'signature': '', 'txOutId': '', 'txOutIndex': 0}],
   txOuts: [{
-      'address': '',
-      'amount': 50
+    'address': '0480e988939533af908284e32cf0a52f6c3a955989b4dd9f6824a241372c0fa6a1497b2de32b0ee778ac8509792a19b5ce6a1a4f785221d01de575f5d07333fad2',
+    'amount': 50
   }],
-  id: '1dd68a2d273df991618f7d4a02d8fe2b79ac131ca6eb0791d5042b99e247918e'
+  id: '2e25978b205dd38581b1bb0201cb79e033d8c074e697402057ea48012f27735f'
 };
 
 const createGenesisBlock = () => {
@@ -60,14 +61,18 @@ const createGenesisBlock = () => {
 
 let Blocks = [createGenesisBlock()];
 
-let unspentTxOuts = [];
+let unspentTxOuts = processTransactions(Blocks[0].body, [], 0);
+
+const getAccountBalance = () => {
+  return getBalance(getPublicKeyFromWallet(), unspentTxOuts);
+};
 
 const getBlocks = () => {
   return Blocks;
 };
 
 const getUnspentTxOuts = () => {
-  return unspentTxOuts;
+  return _.cloneDeep(unspentTxOuts);
 };
 
 const getLastBlock = () => {
@@ -104,12 +109,22 @@ const createHash = (data) => {
   return hash;
 };
 
-const newNextBlock = (bodyData) => {
+const newNextBlock = (receiverAddress, amount) => {
+  if (!isAddressValid(receiverAddress)) {
+    throw Error('invalid address');
+  };
+  
+  if (typeof amount !== 'number') {
+    throw Error('invalid amount');
+  };
+
   const coinbaseTx = createCoinbaseTx(
     getPublicKeyFromWallet(),
     getLastBlock().header.index + 1,
   );
-  const blockData = [coinbaseTx].concat(bodyData);
+
+  const tx = createTx(receiverAddress, amount, getPrivateKeyFromWallet(), unspentTxOuts);
+  const blockData = [coinbaseTx].concat(tx);
   return nextBlock(blockData);
 };
 
@@ -240,4 +255,5 @@ module.exports = {
   getTimestamp,
   addBlock,
   getUnspentTxOuts,
+  getAccountBalance,
 };
