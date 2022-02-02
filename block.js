@@ -222,24 +222,39 @@ const isValidChain = (blockchainToValidate) => {
   };
 
   if (!isValidGenesis(blockchainToValidate[0])) {
+    console.log(
+      "The candidateChains's genesisBlock is not the same as our genesisBlock"
+    );
     return false;
   };
 
-  for (let i = 1; i < blockchainToValidate.length; i++) {
-    if (!isValidNewBlock(blockchainToValidate[i], blockchainToValidate[i - 1])) {
-      return false;
-    };
-  };
+  let foreignUTxOuts = [];
 
-  return true;
+  for (let i = 1; i < blockchainToValidate.length; i++) {
+    const currentBlock = candidateChain[i];
+    if (i !== 0 && !isValidNewBlock(blockchainToValidate[i], blockchainToValidate[i - 1])) {
+      return null;
+    };
+
+    foreignUTxOuts = processTransactions(
+      currentBlock.body,
+      foreignUTxOuts,
+      currentBlock.header.index
+    );
+
+    if (foreignUTxOuts === null) {
+      return null;
+    }
+  };
+  return foreignUTxOuts;
 };
 
 const replaceChain = (candidateChain) => {
   const { broadcast, responseLatestMsg } = require("./p2pServer");
 
-  // const foreignUTxOuts = isChainValid(candidateChain);
-  // const validChain = foreignUTxOuts !== null;
-  if (isValidChain(candidateChain) && sumDifficulty(candidateChain) > sumDifficulty(getBlocks())) {
+  const foreignUTxOuts = isValidChain(candidateChain);
+  const validChain = foreignUTxOuts !== null;
+  if (validChain && sumDifficulty(candidateChain) > sumDifficulty(getBlocks())) {
     Blocks = candidateChain;
     // unspentTxOuts = foreignUTxOuts;
     // updateMempool(unspentTxOuts);
