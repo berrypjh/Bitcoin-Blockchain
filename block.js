@@ -6,6 +6,7 @@ const hexToBinary = require('hex-to-binary');
 const { getPublicKeyFromWallet, getBalance, createTx, getPrivateKeyFromWallet } = require('./wallet');
 const { createCoinbaseTx } = require('./transaction');
 const { processTransactions, isAddressValid } = require('./checkValidTx');
+const { addToMempool, getMempool } = require('./memPool');
 
 const BLOCK_GENERATION_INTERVAL = 10;
 const DIFFICULTY_ADJUSMENT_INTERVAL = 10;
@@ -109,23 +110,29 @@ const createHash = (data) => {
   return hash;
 };
 
-const newNextBlock = (receiverAddress, amount) => {
-  if (!isAddressValid(receiverAddress)) {
-    throw Error('invalid address');
-  };
-  
-  if (typeof amount !== 'number') {
-    throw Error('invalid amount');
-  };
-
+const newNextBlock = () => {
   const coinbaseTx = createCoinbaseTx(
     getPublicKeyFromWallet(),
     getLastBlock().header.index + 1,
   );
 
-  const tx = createTx(receiverAddress, amount, getPrivateKeyFromWallet(), unspentTxOuts);
-  const blockData = [coinbaseTx].concat(tx);
+  const blockData = [coinbaseTx].concat(getMempool());
   return nextBlock(blockData);
+};
+
+const sendTx = (address, amount) => {
+  // const { broadcastMempool } = require("../network/networks");
+
+  const tx = createTx(
+    address,
+    amount,
+    getPrivateKeyFromWallet(),
+    unspentTxOuts,
+    getMempool()
+  );
+  addToMempool(tx, unspentTxOuts);
+  // broadcastMempool();
+  return tx;
 };
 
 const nextBlock = (bodyData) => {
@@ -148,7 +155,6 @@ const nextBlock = (bodyData) => {
 
   return new Block(newheader, bodyData);
 };
-
 
 const findBlockHeader = (version, index, previousHash, timestamp, merkleRoot, difficulty) => {
   let nonce = 0;
@@ -256,4 +262,5 @@ module.exports = {
   addBlock,
   getUnspentTxOuts,
   getAccountBalance,
+  sendTx,
 };

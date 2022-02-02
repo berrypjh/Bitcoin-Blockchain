@@ -196,4 +196,5 @@ const processTransactions = (aTransactions, aUnspentTxOuts, blockIndex) => {
 module.exports = {
   processTransactions,
   isAddressValid,
+  validateTx,
 };

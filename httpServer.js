@@ -1,5 +1,6 @@
 const express = require("express");
-const { addBlock, getBlocks, getVersion, newNextBlock, getUnspentTxOuts, getAccountBalance } = require("./block");
+const { addBlock, getBlocks, getVersion, newNextBlock, getUnspentTxOuts, getAccountBalance, sendTx } = require("./block");
+const { getMempool } = require("./memPool");
 const { initP2PServer, connectToPeers, getSockets } = require("./p2pServer");
 const { initWallet, getBalance, getPublicKeyFromWallet } = require("./wallet");
 
@@ -68,6 +69,24 @@ const initHttpServer = () => {
     const { address } = req.params;
     const balance = getBalance(address, getUnspentTxOuts());
     res.send({ balance });
+  });
+
+  app.post("/addtransactions", (req, res) => {
+    try {
+      const { address, amount } = req.body;
+      if (address === undefined || amount === undefined) {
+        throw Error("Please specify and address and an amount");
+      } else {
+        const resPonse = sendTx(address, amount);
+        res.send(resPonse);
+      }
+    } catch (e) {
+      res.status(400).send(e.message);
+    };
+  });
+
+  app.get("/transactionPool", (req, res) => {
+    res.send(getMempool());
   });
 
   app.listen(HTTP_PORT, () => {
