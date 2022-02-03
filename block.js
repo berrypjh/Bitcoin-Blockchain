@@ -266,7 +266,7 @@ const replaceChain = (candidateChain) => {
   };
 };
 
-const handleIncomingTx = tx => {
+const handleIncomingTx = (tx) => {
   addToMempool(tx, unspentTxOuts);
 };
 

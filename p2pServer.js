@@ -65,12 +65,12 @@ const initConnection = (ws) => {
   initErrorHandler(ws);
   write(ws, queryLatestMsg());
   setTimeout(() => {
-    broadcast(getAllMempool()); // changed line
+    broadcast(getAllMempool());
   }, 1000);
   setInterval(() => {
     if (sockets.includes(ws)) {
       write(ws, "");
-    }
+    };
   }, 1000);
 };
 
@@ -123,7 +123,7 @@ const initMessageHandler = (ws) => {
 
     if (message === null) {
       return;
-    }
+    };
 
     switch (message.type) {
       case MessageType.QUERY_LATEST:
@@ -146,14 +146,14 @@ const initMessageHandler = (ws) => {
         const receivedTxs = message.data;
         if (receivedTxs === null) {
           return;
-        }
+        };
         receivedTxs.forEach(tx => {
           try {
             handleIncomingTx(tx);
             broadcast(returnMempool());
           } catch (e) {
             console.log(e);
-          }
+          };
         });
         break;
     };

@@ -14,7 +14,6 @@ const addToMempool = (tx, uTxOutList) => {
   mempool.push(tx);
 };
 
-
 const hasTxIn = (txIn, uTxOutList) => {
   const foundTxIn = uTxOutList.find(
     uTxO => uTxO.txOutId === txIn.txOutId && uTxO.txOutIndex === txIn.txOutIndex
@@ -23,7 +22,7 @@ const hasTxIn = (txIn, uTxOutList) => {
   return foundTxIn !== undefined;
 };
 
-const updateMempool = uTxOutList => {
+const updateMempool = (uTxOutList) => {
   const invalidTxs = [];
 
   for (const tx of mempool) {
@@ -31,16 +30,16 @@ const updateMempool = uTxOutList => {
       if (!hasTxIn(txIn, uTxOutList)) {
         invalidTxs.push(tx);
         break;
-      }
-    }
-  }
+      };
+    };
+  };
 
   if (invalidTxs.length > 0) {
     mempool = _.without(mempool, ...invalidTxs);
-  }
+  };
 };
 
-const getTxInsInPool = mempool => {
+const getTxInsInPool = (mempool) => {
   return _(mempool)
     .map(tx => tx.txIns)
     .flatten()
@@ -62,8 +61,8 @@ const isTxValidForPool = (tx, mempool) => {
   for (const txIn of tx.txIns) {
     if (isTxInAlreadyInPool(txInsInPool, txIn)) {
       return false;
-    }
-  }
+    };
+  };
   return true;
 };
 
