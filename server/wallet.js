@@ -4,7 +4,7 @@ const ec = new ecdsa.ec("secp256k1");
 const _ = require("lodash");
 const { TxOut, TxIn, Transaction, getTransactionId, signTxIn } = require('./transaction');
 
-const privateKeyLocation = "wallet/" + (process.env.PRIVATE_KEY || "default");
+const privateKeyLocation = "server/wallet/" + (process.env.PRIVATE_KEY || "default");
 const privateKeyFile = privateKeyLocation + "/private_key";
 
 const generatePrivateKey = () => {
@@ -19,8 +19,8 @@ const initWallet = () => {
     return;
   };
 
-  if (!fs.existsSync("wallet/")) {
-    fs.mkdirSync("wallet/")
+  if (!fs.existsSync("server/wallet/")) {
+    fs.mkdirSync("server/wallet/")
   };
 
   if (!fs.existsSync(privateKeyLocation)) {

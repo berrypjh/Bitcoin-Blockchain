@@ -2,12 +2,12 @@
   "name": "bitcoin-blockchain",
   "version": "1.0.0",
   "description": "비트코인 블록체인 프로젝트",
-  "main": "httpServer.js",
+  "main": "server/httpServer.js",
   "scripts": {
-    "start": "node httpServer.js",
-    "dev": "node httpServer.js",
-    "dev-peer": "export HTTP_PORT=4001 && export P2P_PORT=6001 && export PRIVATE_KEY=peer1 && node httpServer.js",
-    "dev-peer2": "export HTTP_PORT=4002 && export P2P_PORT=6002 && export PRIVATE_KEY=peer2 &&  node httpServer.js"
+    "start": "node server/httpServer.js",
+    "dev": "node server/httpServer.js",
+    "dev-peer": "export HTTP_PORT=4001 && export P2P_PORT=6001 && export PRIVATE_KEY=peer1 && node server/httpServer.js",
+    "dev-peer2": "export HTTP_PORT=4002 && export P2P_PORT=6002 && export PRIVATE_KEY=peer2 &&  node server/httpServer.js"
   },
   "repository": {
     "type": "git",
