@@ -10,11 +10,10 @@ const MainLayout = () => {
 
     return (
         <Box sx={{ display: 'inline-block' }}>
-                                
             {/* header */}
             <AppBar
                 enableColorOnDark
-                position="fixed"
+                display="block"
                 color="inherit"
                 elevation={0}
                 sx={{
@@ -32,9 +31,9 @@ const MainLayout = () => {
             </AppBar>
 
             {/* main content */}
-            <div style={{ marginTop: '220px' }} >
+            <Box  style={{ marginTop: "120px"}}>
                 <Outlet />
-            </div>
+            </Box>
         </Box>
     );
 };

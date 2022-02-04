@@ -1,33 +1,22 @@
-import { useEffect, useState } from 'react';
-
 import { Grid } from '@mui/material';
 
-import EarningCard from './EarningCard';
-import TotalIncomeDarkCard from './TotalIncomeDarkCard';
-import TotalIncomeLightCard from './TotalIncomeLightCard';
-import { gridSpacing } from '../../../store/constant';
+import MainBalancePage from '../mainbalance';
+import MainCard from '../../../ui-component/MainCard';
+import MainTxPage from '../mainTransaction';
 
 const Dashboard = () => {
-    const [isLoading, setLoading] = useState(true);
-    useEffect(() => {
-        setLoading(false);
-    }, []);
-
     return (
         <>
-            <Grid container spacing={gridSpacing}>
-                <Grid item lg={8} xs={12}>
-                    <EarningCard isLoading={isLoading} />
+            <Grid container spacing={2}>
+                <Grid item xs={6} >
+                    <MainCard title="잔액" >
+                        <MainBalancePage />
+                    </MainCard>
                 </Grid>
-                <Grid item lg={4} md={12} sm={12} xs={12}>
-                    <Grid container spacing={gridSpacing}>
-                        <Grid item sm={6} xs={12} md={6} lg={12}>
-                            <TotalIncomeDarkCard isLoading={isLoading} />
-                        </Grid>
-                        <Grid item sm={6} xs={12} md={6} lg={12}>
-                            <TotalIncomeLightCard isLoading={isLoading} />
-                        </Grid>
-                    </Grid>
+                <Grid item xs={6}>
+                    <MainCard title="최근 거래들">
+                        <MainTxPage />
+                    </MainCard>
                 </Grid>
             </Grid>
         </>

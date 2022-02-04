@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { styled, useTheme } from "@mui/material/styles";
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 
-import MainCard from "../../ui-component/cards/MainCard";
+import MainCard from "../../ui-component/MainCard";
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.dark,

@@ -1,4 +1,4 @@
-import { IconTypography, IconUser, IconWallet, IconCurrencyBitcoin, IconCirclePlus, IconDashboard, IconBrandTelegram } from '@tabler/icons';
+import { IconTypography, IconUser, IconWallet, IconCurrencyBitcoin, IconCirclePlus, IconHome, IconBrandTelegram } from '@tabler/icons';
 
 const icons = {
     IconTypography,
@@ -6,7 +6,7 @@ const icons = {
     IconWallet,
     IconCurrencyBitcoin,
     IconCirclePlus,
-    IconDashboard,
+    IconHome,
     IconBrandTelegram
 };
 
@@ -20,23 +20,15 @@ const utilities = {
             title: '개요',
             type: 'item',
             url: '',
-            icon: icons.IconDashboard,
+            icon: icons.IconHome,
             breadcrumbs: false
         },
         {
-            id: 'util-typography',
+            id: 'util-transaction',
             title: '보내기',
             type: 'item',
-            url: '/user',
+            url: '/transaction',
             icon: icons.IconBrandTelegram,
-            breadcrumbs: false
-        },
-        {
-            id: 'util-Block',
-            title: '받기',
-            type: 'item',
-            url: '/block',
-            icon: icons.IconCurrencyBitcoin,
             breadcrumbs: false
         },
         {
@@ -48,8 +40,16 @@ const utilities = {
             breadcrumbs: false
         },
         {
+            id: 'util-Block',
+            title: '블록생성',
+            type: 'item',
+            url: '/block',
+            icon: icons.IconCurrencyBitcoin,
+            breadcrumbs: false
+        },
+        {
             id: 'util-peer',
-            title: '연결하기',
+            title: '연결',
             type: 'item',
             url: '/peer',
             icon: icons.IconCirclePlus,

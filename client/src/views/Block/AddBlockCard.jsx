@@ -2,54 +2,62 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import Axios from "axios";
 
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import { Alert } from "@mui/material";
+
 const AddBlockCard = () => {
-  const [TxAddress, setTxAddress] = useState('');
-  const [Amount, setAmount] = useState(0);
+  // const onSubmitAddBlock = (e) => {
+  //   e.preventDefault();
+  //   Axios.post("/api/mineBlock").then((response) => {
+  //     console.log(response);
+  //   });
+  // };
 
-  const tx = {
-    address: TxAddress,
-    amount: Amount,
-  };
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
 
-  const onSubmitAddBlock = (e) => {
-    e.preventDefault();
-    Axios.post("/api/mineBlock").then((response) => {
-      console.log(response);
-    });
-  };
+  const { vertical, horizontal, open } = state;
 
-  const onSubmitAddTX = (e) => {
-    e.preventDefault();
-    Axios.post("/api/addtransactions", tx).then((response) => {
-      console.log(response);
-    });
+  const handleClick = (newState) => () => {
+    setState({ open: true, ...newState });
   };
 
-  const onTxAddressChange = (e) => {
-    setTxAddress(e.target.value);
+  const handleClose = () => {
+    setState({ ...state, open: false });
   };
-  const onAmountChange = (e) => {
-    setAmount(e.target.value);
-  };
+
+  const buttons = (
+    <>
+      <Button
+        onClick={handleClick({
+          vertical: 'top',
+          horizontal: 'center',
+        })}
+      >
+       채굴하기
+      </Button>
+    </>
+  );
 
   return (
     <>
-      <form onSubmit={onSubmitAddTX}>
-        <label>
-          <input type="text" value={TxAddress} onChange={onTxAddressChange} />
-          <input type="text" value={Amount} onChange={onAmountChange} />
-        </label>
-        <button>보내기</button>
-      </form>
-      <form onSubmit={onSubmitAddBlock}>
-        <button>채굴 하기</button>
-      </form>
+      {buttons}
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        key={vertical + horizontal}
+        autoHideDuration={3000} 
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ backgroundColor: '#dadada', width: '100%' }}>
+          채굴 시작!
+        </Alert>
+      </Snackbar>
     </>
   );
-};
-
-AddBlockCard.propTypes = {
-  isLoading: PropTypes.bool,
 };
 
 export default AddBlockCard;

@@ -1,9 +1,9 @@
-import AddressDefault from "./Wallet";
+import WalletPage from "./Wallet";
 
 const WalletDefault = () => {
   return (
     <>
-      <AddressDefault />
+      <WalletPage />
     </>
   );
 };

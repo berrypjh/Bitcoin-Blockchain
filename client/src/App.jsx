@@ -5,9 +5,10 @@ import { StyledEngineProvider } from "@mui/material";
 
 import MainLayout from "./layout";
 import Dashboard from "./views/dashboard/Default";
-import PeerDefault from "./views/Peer";
+import TransactionDefault from "./views/Transaction";
 import BlockDefault from "./views/Block";
 import WalletDefault from "./views/Wallet";
+import PeerDefault from "./views/Peer";
 
 import themes from "./themes";
 import { Route, Routes } from "react-router-dom";
@@ -21,9 +22,10 @@ const App = () => {
         <Routes>
           <Route path="/*" element={<MainLayout />}>
             <Route path="" element={<Dashboard />} />
-            <Route path="user" element={<PeerDefault />} />
+            <Route path="transaction" element={<TransactionDefault />} />
             <Route path="block" element={<BlockDefault />} />
             <Route path="wallet" element={<WalletDefault />} />
+            <Route path="peer" element={<PeerDefault />} />
           </Route>
         </Routes>
       </ThemeProvider>
