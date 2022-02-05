@@ -36,6 +36,8 @@ const TransactionDefault = (props) => {
         return;
       };
       setState({ successOpen: true, ...newState });
+      setSendAddress("");
+      setAmount("");
       props.setFlag(true);
     });
     props.setFlag(false);
@@ -81,7 +83,7 @@ const TransactionDefault = (props) => {
             sx={{ width: '40vw', height: '60px', width: "100%", marginLeft: "-1.5%" }}
             value={SendAddress}
             onChange={onSendAddressChange}
-            placeholder={"코인 주소를 입력하세요 (예: 1NS17iag9jJgTHDIVXjvLCEnZuQ3rJDE9L)"}
+            placeholder={"코인 주소를 입력하세요 (예: 044f732ce133baf8bb06e21b75f9114790b...)"}
           />
         </FormControl>
         <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">

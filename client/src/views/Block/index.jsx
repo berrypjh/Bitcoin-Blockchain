@@ -2,15 +2,16 @@ import Axios from "axios";
 import { useState, useEffect } from "react";
 
 import { Grid } from "@mui/material";
-import MainCard from "../../ui-component/MainCard";
-import AddBlockCard from "./AddBlockCard";
 import BlocksCard from "./BlocksCard";
+import TransactionCard from "./TransactionCard";
 
 const BlockDefault = () => {
   const [Blocks, setBlocks] = useState([]);
+  const [Transaction, setTransaction] = useState([]);
 
   let data = {
     Blocks,
+    setTransaction,
   };
 
   useEffect(() => {
@@ -26,10 +27,8 @@ const BlockDefault = () => {
         <Grid item md={6}>
           <BlocksCard data={data}/>
         </Grid>
-        <Grid item md={6} >
-          <MainCard>
-            <AddBlockCard />
-          </MainCard>
+        <Grid item md={6}>
+          <TransactionCard Transaction={Transaction} />
         </Grid>
       </Grid>
     </>

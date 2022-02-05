@@ -16,9 +16,7 @@ const TransactionDefault = () => {
           </MainCard>
         </Grid>
         <Grid item md={6}>
-          {/* <MainCard> */}
-            <MempoolPage Flag={Flag} />
-          {/* </MainCard> */}
+          <MempoolPage Flag={Flag} />
         </Grid>
       </Grid>
     </>

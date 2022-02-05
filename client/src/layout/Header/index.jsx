@@ -2,6 +2,7 @@ import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
 import LogoSection from '../LogoSection';
+import AddBlockCard from '../Block/AddBlockCard';
 
 const Header = () => {
     const theme = useTheme();
@@ -16,8 +17,20 @@ const Header = () => {
                     paddingBottom: "1px",
                 }}
             >
-                <Box component="span" sx={{ display: { md: 'block' } }}>
+                <Box component="span">
                     <LogoSection />
+                </Box>
+            </Box>
+            <Box
+                style={{
+                    width: 128,
+                    paddingTop: "10px",
+                    paddingLeft: "28px",
+                    paddingBottom: "1px",
+                }}
+            >
+                <Box component="span">
+                    <AddBlockCard />
                 </Box>
             </Box>
         </>

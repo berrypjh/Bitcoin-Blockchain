@@ -66,7 +66,7 @@ const MempoolPage = (props) => {
               aria-controls="panel2a-content"
               id="panel2a-header"
             >
-              <Typography>{index + 1} 번째 거래 예정</Typography>
+              <Typography>예정된 거래내역 {index + 1}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography>id : {mempool.id}</Typography>

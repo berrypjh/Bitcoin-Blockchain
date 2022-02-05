@@ -44,9 +44,9 @@ const AddBlockCard = () => {
       <Button
         type="submit"
         color="secondary"
-        variant="outlined"
+        variant="text"
         className="sendbutton"
-        style={{width: "100%"}}
+        style={{width: "100%", fontSize: "13px", color: "gray"}}
       >
        채굴하기
       </Button>
@@ -57,7 +57,6 @@ const AddBlockCard = () => {
     <>
       <form onSubmit={onSubmitAddBlock}>
         {buttons}
-        하단에 트랜잭션 자세히보기
       </form>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}

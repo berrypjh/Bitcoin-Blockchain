@@ -47,18 +47,18 @@ router.get("/peers", (req, res) => {
   res.status(200).json({ peer: sockInfo, success: true });
 });
 
+router.get("/address/:address", (req, res) => {
+  const { address } = req.params;
+  const balance = getBalance(address, getUnspentTxOuts());
+  res.send({ balance });
+});
+
 router.get("/address", (req, res) => {
   res.send(getPublicKeyFromWallet());
 });
 
 router.get("/balance", (req, res) => {
   const balance = getAccountBalance();
-  res.send({ balance });
-});
-
-router.get("/address/:address", (req, res) => {
-  const { address } = req.params;
-  const balance = getBalance(address, getUnspentTxOuts());
   res.send({ balance });
 });
 
@@ -70,8 +70,7 @@ router.post("/addtransactions", (req, res) => {
     if (address === undefined || amount === undefined) {
       res.send({ message: false });
     } else {
-      const resPonse = sendTx(address, amountNumber);
-      res.send(resPonse);
+      sendTx(address, amountNumber);
       res.send({ message: true });
     }
   } catch (e) {
