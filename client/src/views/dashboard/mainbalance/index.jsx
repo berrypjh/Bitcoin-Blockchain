@@ -1,15 +1,21 @@
 import { Divider, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Axios from 'axios';
 
 const MainBalancePage = () => {
+    const [Balance, setBalance] = useState(0);
+
     useEffect(() => {
-      // 잔액요청
+      Axios.get("/api/balance")
+        .then((response) => {
+            setBalance(response.data.balance)
+        });
     }, []);
     
     return (
         <>
             <Typography variant="string" component="div" sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}>
-                사용가능 : 
+                사용가능 : {Balance} 
             </Typography>
             <Typography variant="string" component="div" sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}>
                 미확정 : 

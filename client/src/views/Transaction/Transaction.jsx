@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Divider, FormControl, InputAdornment, TextField, Typography } from "@mui/material";
+import Axios from 'axios';
+import { Divider, FormControl, TextField } from "@mui/material";
 import MainCard from "../../ui-component/MainCard";
 
 import Button from '@mui/material/Button';
@@ -7,35 +8,61 @@ import Snackbar from '@mui/material/Snackbar';
 import { Alert } from "@mui/material";
 
 const TransactionDefault = () => {
-  const [AAAA, setAAAA] = useState("");
-
-  const onTxAddressChange = (e) => {
-    setAAAA(e.target.value);
-  };
-
-  const [state, setState] = useState({
-    open: false,
+  const [SendAddress, setSendAddress] = useState("");
+  const [Amount, setAmount] = useState("");
+  const [State, setState] = useState({
+    successOpen: false,
+    errorOpen: false,
     vertical: 'top',
     horizontal: 'center',
   });
 
-  const { vertical, horizontal, open } = state;
+  const { vertical, horizontal, successOpen, errorOpen } = State;
 
-  const handleClick = (newState) => () => {
-    setState({ open: true, ...newState });
+  const data = {
+    address: SendAddress,
+    amount: Amount,
+  };
+
+  const onSubmitAddBlock = (e) => {
+    e.preventDefault();
+    Axios.post("/api/addtransactions", data).then((response) => {
+      let newState = {
+        vertical: 'top',
+        horizontal: 'center',
+      };
+
+      if (response.data.message === false) {
+        setState({ errorOpen: true, ...newState });
+        return;
+      };
+      setState({ successOpen: true, ...newState });
+    });
+  };
+
+  const onSendAddressChange = (e) => {
+    setSendAddress(e.target.value);
+  };
+
+  const onAmountChange = (e) => {
+    setAmount(e.target.value);
   };
 
   const handleClose = () => {
-    setState({ ...state, open: false });
+    setState({ ...State, successOpen: false });
+  };
+  const handleErrorClose = () => {
+    setState({ ...State, errorOpen: false });
   };
 
   const buttons = (
     <>
       <Button
-        onClick={handleClick({
-          vertical: 'top',
-          horizontal: 'center',
-        })}
+        type="submit"
+        color="secondary"
+        variant="outlined"
+        className="sendbutton"
+        style={{width: "100%"}}
       >
        보내기
       </Button>
@@ -45,41 +72,49 @@ const TransactionDefault = () => {
   return (
     <>
       <MainCard>
-        <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
-          <TextField
-            fullWidth
-            label="송금할 대상 :"
-            autoFocus
-            id="outlined-start-adornment"
-            sx={{ width: '40vw', height: '60px' }}
-            value={AAAA}
-            onChange={onTxAddressChange}
-            placeholder={"코인 주소를 입력하세요 (예: 1NS17iag9jJgTHDIVXjvLCEnZuQ3rJDE9L)"}
-          />
-        </FormControl>
-        <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
-          <TextField
-            fullWidth
-            label="금액 :"
-            id="amount"
-            sx={{ width: '40vw', height: '80px' }}
-            value={AAAA}
-            onChange={onTxAddressChange}
-            placeholder={"0"}
-          />
-        </FormControl>
-        {buttons}
+        <form onSubmit={onSubmitAddBlock}>
+          <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
+            <TextField
+              label="송금할 대상 :"
+              autoFocus
+              id="outlined-start-adornment"
+              sx={{ width: '40vw', height: '60px', width: "100%", marginLeft: "-1.5%" }}
+              value={SendAddress}
+              onChange={onSendAddressChange}
+              placeholder={"코인 주소를 입력하세요 (예: 1NS17iag9jJgTHDIVXjvLCEnZuQ3rJDE9L)"}
+            />
+          </FormControl>
+          <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
+            <TextField
+              label="금액 :"
+              id="amount"
+              sx={{ width: '40vw', height: '80px', width: "100%", marginLeft: "-1.5%" }}
+              value={Amount}
+              onChange={onAmountChange}
+              placeholder={"0"}
+            />
+          </FormControl>
+          {buttons}
+        </form>
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
-          open={open}
+          open={successOpen}
           key={vertical + horizontal}
-          autoHideDuration={3000} 
         >
-          <Alert onClose={handleClose} severity="success" sx={{ backgroundColor: '#dadada', width: '100%' }}>
+          <Alert onClose={handleClose} severity="success" sx={{ backgroundColor: '#20E2D7', width: '100%' }}>
             성공
           </Alert>
         </Snackbar>
-        <Divider sx={{ mt: 0.25, mb: 0.25, marginTop: "-7px" }} />
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={errorOpen}
+          key={vertical + horizontal + false}
+        >
+          <Alert onClose={handleErrorClose} severity="error" sx={{ backgroundColor: '#ff0844', width: '100%' }}>
+            실패
+          </Alert>
+        </Snackbar>
+        <Divider sx={{ mt: 0.25, mb: 0.25, marginTop: "10px" }} />
         mempool 예정
       </MainCard>
     </>

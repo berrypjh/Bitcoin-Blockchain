@@ -2,12 +2,16 @@
   "name": "bitcoin-blockchain",
   "version": "1.0.0",
   "description": "비트코인 블록체인 프로젝트",
-  "main": "server/httpServer.js",
+  "main": "server/app.js",
   "scripts": {
-    "start": "node server/httpServer.js",
-    "dev": "node server/httpServer.js",
-    "dev-peer": "export HTTP_PORT=4001 && export P2P_PORT=6001 && export PRIVATE_KEY=peer1 && node server/httpServer.js",
-    "dev-peer2": "export HTTP_PORT=4002 && export P2P_PORT=6002 && export PRIVATE_KEY=peer2 &&  node server/httpServer.js"
+    "start": "node server/app.js",
+    "nodemon": "nodemon server/app.js",
+    "backend": "node server/app.js",
+    "backend-peer": "export HTTP_PORT=4001 && export P2P_PORT=6001 && export PRIVATE_KEY=peer1 && node server/app.js",
+    "backend-peer2": "export HTTP_PORT=4002 && export P2P_PORT=6002 && export PRIVATE_KEY=peer2 &&  node server/app.js",
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
+    "dev-peer": "concurrently \"npm run backend-peer\" \"npm run front-peer --prefix client\"",
+    "dev-peer2": "concurrently \"npm run backend-peer2\" \"npm run front-peer2 --prefix client\""
   },
   "repository": {
     "type": "git",
@@ -20,6 +24,7 @@
   },
   "homepage": "https://github.com/berrypjh/Bitcoin-Blockchain#readme",
   "dependencies": {
+    "concurrently": "^7.0.0",
     "crypto-js": "^4.1.1",
     "elliptic": "^6.5.4",
     "express": "^4.17.2",
