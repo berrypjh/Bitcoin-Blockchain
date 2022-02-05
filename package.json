@@ -9,6 +9,7 @@
     "backend": "node server/app.js",
     "backend-peer": "export HTTP_PORT=4001 && export P2P_PORT=6001 && export PRIVATE_KEY=peer1 && node server/app.js",
     "backend-peer2": "export HTTP_PORT=4002 && export P2P_PORT=6002 && export PRIVATE_KEY=peer2 &&  node server/app.js",
+    "frontend": "npm run start --prefix client",
     "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
     "dev-peer": "concurrently \"npm run backend-peer\" \"npm run front-peer --prefix client\"",
     "dev-peer2": "concurrently \"npm run backend-peer2\" \"npm run front-peer2 --prefix client\""

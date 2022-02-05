@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import { Divider, FormControl, TextField } from "@mui/material";
+import { Divider, FormControl, TextField, Typography } from "@mui/material";
 import Axios from 'axios';
 
-import MainCard from "../../ui-component/MainCard";
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from "@mui/material";
 
-const PeerPage = () => {
+const PeerPage = (props) => {
   const [Peer, setPeer] = useState("");
   const [FlagPeer, setFlagPeer] = useState("");
-  const [SuccessPeer, setSuccessPeer] = useState([]);
   const [State, setState] = useState({
     successOpen: false,
     errorOpen: false,
@@ -32,14 +30,14 @@ const PeerPage = () => {
 
   useEffect(() => {
     Axios.get("/api/peers").then((response) => {
-      setSuccessPeer(response.data.peer);
+      props.setSuccessPeer(response.data.peer);
     });
   }, []);
 
   const onSubmitAddPeer = (e) => {
     e.preventDefault();
     const ws = `127.0.0.1:${Peer}`;
-    if (!SuccessPeer.includes(ws)) {
+    if (!props.SuccessPeer.includes(ws)) {
       Axios.post("/api/addPeers", data)
         .then((response) => {
           setFlagPeer(response.data.peer);
@@ -48,7 +46,7 @@ const PeerPage = () => {
               const peerArray = response.data.peer;
               if (peerArray.includes(ws)) {
                 setState({ successOpen: true, ...newState });
-                setSuccessPeer(SuccessPeer.concat(ws));
+                props.setSuccessPeer(props.SuccessPeer.concat(ws));
                 setPeer("");
               } else {
                 setState({ errorOpen: true, ...newState });
@@ -93,7 +91,6 @@ const PeerPage = () => {
 
   return (
     <>
-      <MainCard>
         <form onSubmit={onSubmitAddPeer}>
           <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
             <TextField
@@ -135,15 +132,6 @@ const PeerPage = () => {
             {FlagPeer} 는 이미 연결된 상태입니다.
           </Alert>
         </Snackbar>
-        <Divider sx={{ mt: 0.25, mb: 0.25, marginTop: "10px" }} />
-        연결된 peer
-        <div>
-          {SuccessPeer &&
-            SuccessPeer.map((peer) => {
-              return <div key={peer}>{peer}</div>;
-            })}
-        </div>
-      </MainCard>
     </>
   );
 };

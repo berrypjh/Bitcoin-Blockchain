@@ -15,9 +15,11 @@ router.get("/utxos", (req, res) => {
 
 router.post("/mineBlock", (req, res) => {
   const block = newNextBlock();
-  addBlock(block);
-
-  res.send(block);
+  if(!addBlock(block)) {
+    res.send({ message: false });
+    return;
+  };
+  res.send({ message: true });
 });
 
 router.get("/version", (req, res) => {
@@ -68,9 +70,9 @@ router.post("/addtransactions", (req, res) => {
     if (address === undefined || amount === undefined) {
       res.send({ message: false });
     } else {
+      const resPonse = sendTx(address, amountNumber);
+      res.send(resPonse);
       res.send({ message: true });
-      // const resPonse = sendTx(address, amountNumber);
-      // res.send(resPonse);
     }
   } catch (e) {
     console.log(e.message);

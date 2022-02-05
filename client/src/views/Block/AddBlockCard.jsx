@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
 import Axios from "axios";
 
@@ -7,36 +6,47 @@ import Snackbar from '@mui/material/Snackbar';
 import { Alert } from "@mui/material";
 
 const AddBlockCard = () => {
-  // const onSubmitAddBlock = (e) => {
-  //   e.preventDefault();
-  //   Axios.post("/api/mineBlock").then((response) => {
-  //     console.log(response);
-  //   });
-  // };
-
-  const [state, setState] = useState({
-    open: false,
+  const [State, setState] = useState({
+    successOpen: false,
+    errorOpen: false,
     vertical: 'top',
     horizontal: 'center',
   });
 
-  const { vertical, horizontal, open } = state;
+  const { vertical, horizontal, successOpen, errorOpen } = State;
 
-  const handleClick = (newState) => () => {
-    setState({ open: true, ...newState });
+  let newState = {
+    vertical: 'top',
+    horizontal: 'center',
   };
 
+  const onSubmitAddBlock = (e) => {
+    e.preventDefault();
+    Axios.post("/api/mineBlock").then((response) => {
+      console.log(response);
+      if (response.data.message === false) {
+        setState({ errorOpen: true, ...newState });
+        return;
+      };
+      setState({ successOpen: true, ...newState });
+    });
+  };
+  
   const handleClose = () => {
-    setState({ ...state, open: false });
+    setState({ ...State, successOpen: false });
+  };
+  const handleErrorClose = () => {
+    setState({ ...State, errorOpen: false });
   };
 
   const buttons = (
     <>
       <Button
-        onClick={handleClick({
-          vertical: 'top',
-          horizontal: 'center',
-        })}
+        type="submit"
+        color="secondary"
+        variant="outlined"
+        className="sendbutton"
+        style={{width: "100%"}}
       >
        채굴하기
       </Button>
@@ -45,15 +55,26 @@ const AddBlockCard = () => {
 
   return (
     <>
-      {buttons}
+      <form onSubmit={onSubmitAddBlock}>
+        {buttons}
+        하단에 트랜잭션 자세히보기
+      </form>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
-        open={open}
+        open={successOpen}
         key={vertical + horizontal}
-        autoHideDuration={3000} 
       >
-        <Alert onClose={handleClose} severity="success" sx={{ backgroundColor: '#dadada', width: '100%' }}>
+        <Alert onClose={handleClose} severity="success" sx={{ backgroundColor: '#20E2D7', width: '100%' }}>
           채굴 시작!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={errorOpen}
+        key={vertical + horizontal + false}
+      >
+        <Alert onClose={handleErrorClose} severity="error" sx={{ backgroundColor: '#ff0844', width: '100%' }}>
+          채굴 실패!
         </Alert>
       </Snackbar>
     </>

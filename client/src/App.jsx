@@ -4,10 +4,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import { StyledEngineProvider } from "@mui/material";
 
 import MainLayout from "./layout";
-import Dashboard from "./views/dashboard/Default";
+import Dashboard from "./views/dashboard";
 import TransactionDefault from "./views/Transaction";
 import BlockDefault from "./views/Block";
-import WalletDefault from "./views/Wallet";
+import WalletDefault from "./views/UnspentTransaction";
 import PeerDefault from "./views/Peer";
 
 import themes from "./themes";

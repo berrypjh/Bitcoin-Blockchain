@@ -1,23 +1,37 @@
 import Axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+
+import { Grid } from "@mui/material";
+import MainCard from "../../ui-component/MainCard";
 import AddBlockCard from "./AddBlockCard";
 import BlocksCard from "./BlocksCard";
 
 const BlockDefault = () => {
   const [Blocks, setBlocks] = useState([]);
 
-  useEffect(() => {
-    // setInterval(() => {
-      Axios.get("/api/blocks").then((response) => {
-        setBlocks(response.data)
-      });
-    // }, 1000);
-  }, [Blocks]);
+  let data = {
+    Blocks,
+  };
 
+  useEffect(() => {
+    Axios.get("/api/blocks")
+      .then((response) => {
+        setBlocks(response.data);
+      })
+  }, []);
+  
   return (
     <>
-      <AddBlockCard />
-      <BlocksCard Blocks={Blocks}/>
+      <Grid container spacing={2}>
+        <Grid item md={6}>
+          <BlocksCard data={data}/>
+        </Grid>
+        <Grid item md={6} >
+          <MainCard>
+            <AddBlockCard />
+          </MainCard>
+        </Grid>
+      </Grid>
     </>
   );
 };
