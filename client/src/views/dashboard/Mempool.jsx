@@ -21,7 +21,7 @@ const MempoolPage = (props) => {
           return (
             <div key={index}>
               <Typography>
-                address : {txOut.address}
+                address : {txOut.address.match(/.{50}/g).join("\n")}
               </Typography>
               <Typography>
                 amount : {txOut.amount}

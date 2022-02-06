@@ -17,7 +17,7 @@ const MainAddressPage = () => {
   return (
     <>
       <Typography variant="string" component="span" sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}>
-        {MyAddress}
+        {MyAddress && MyAddress.match(/.{50}/g).join("\n")}
       </Typography>
 
       <CopyToClipboard text={MyAddress} style={{ marginLeft: "10px" }}>

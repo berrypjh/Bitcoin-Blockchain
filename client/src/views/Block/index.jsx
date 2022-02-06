@@ -33,10 +33,10 @@ const BlockDefault = (props) => {
     <>
       <Clock style={{ display: "none" }} onChange={onFlag} ticking={true} timezone={'US/Pacific'}/>
       <Grid container spacing={2}>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <BlocksCard data={data}/>
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <TransactionCard Transaction={Transaction} />
         </Grid>
       </Grid>

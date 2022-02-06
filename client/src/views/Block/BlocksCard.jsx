@@ -31,11 +31,9 @@ const Miner = (props) => {
   const [MinerInfo, setMinerInfo] = useState({});
 
   const handleClickOpen = () => {
-    console.log(MinerAddress);
     if (!MinerAddress) return;
     
     Axios.get(`/api/address/${MinerAddress}`).then((response) => {
-      console.log(response.data);
       setMinerInfo(response.data);
     })
     setOpen(true);
@@ -55,11 +53,11 @@ const Miner = (props) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Address
+          Miner
         </DialogTitle>
-        <DialogContentText>
+        <DialogContentText  style={{ margin: "20px"}}>
           <DialogContentText id="alert-dialog-description">
-            {MinerAddress}
+            주소 : {MinerAddress && MinerAddress.match(/.{10}/g).join("\n")}
           </DialogContentText>
           <DialogContentText id="alert-dialog-description">
             잔액 : {MinerInfo.balance}
@@ -100,7 +98,7 @@ const Tx = (props) => {
   const onClickHandler = () => {
     props.setTransaction(Transaction)
   };
-
+  
   return (
     <>
       <StyledBreadcrumb component="a" onClick={onClickHandler} label={TxLength} />
@@ -115,7 +113,7 @@ const BlocksCard = (props) => {
     <>
       {Blocks && Blocks.map((block, index) => {
         return (
-          <Accordion key={block.header.index} style={{width: '40vw'}}>
+          <Accordion key={block.header.index}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2a-content"
@@ -125,7 +123,7 @@ const BlocksCard = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                이전 Hash 값 : {block.header.previousHash}
+                이전 Hash 값 : {block.header.previousHash.match(/.{10}/g).join("\n")}
               </Typography>
               <Typography>
                 Timestamp : {new Date((block.header.timestamp)*1000).toLocaleString()}
@@ -145,7 +143,7 @@ const BlocksCard = (props) => {
                 Difficulty :  {block.header.difficulty}
               </Typography>
               <Typography>
-                Merkle root :  {block.header.merkleRoot}
+                Merkle root :  {block.header.merkleRoot.match(/.{10}/g).join("\n")}
               </Typography>
               <Typography>
                 Version :  {block.header.version}

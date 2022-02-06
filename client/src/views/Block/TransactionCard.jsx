@@ -9,7 +9,6 @@ const TransactionCard = (props) => {
 
   const TxInSection = (props) => {
     let TxInArray = props.tx.txIns;
-    console.log(props.tx.txIns);
     
     return (
       <>
@@ -24,7 +23,7 @@ const TransactionCard = (props) => {
           
           return (
             <>
-              <Typography>txOutId : {tx.txOutId}</Typography>
+              <Typography>txOutId : {tx.txOutId.match(/.{10}/g).join("\n")}</Typography>
               <Typography>txOutIndex : {tx.txOutIndex}</Typography>
             </>
           );
@@ -51,7 +50,7 @@ const TransactionCard = (props) => {
               aria-controls="panel2a-content"
               id="panel2a-header"
             >
-              <Typography>ID - {tx.id}</Typography>
+              <Typography>ID - {tx.id.match(/.{10}/g).join("\n")}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <TxInSection tx={tx} />

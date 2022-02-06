@@ -7,12 +7,12 @@ const UnspentTransactionDefault = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item md={6} >
+        <Grid item xs={12} md={6}>
           <MainCard>
             <UnspentTransactionPage />
           </MainCard>
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <MainCard>
             <DBTransactionPage />
           </MainCard>

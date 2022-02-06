@@ -20,18 +20,22 @@ const Dashboard = (props) => {
     <>
       <Clock style={{ display: "none" }} onChange={onFlag} ticking={true} timezone={'US/Pacific'}/>
       <Grid container spacing={2}>
-        <Grid item xs={6} md={12}>
+        <Grid item>
           <MainCard title="내 지갑 주소" >
             <MainAddressPage />
           </MainCard>
         </Grid>
-        <Grid item xs={6} md={6}>
-          <MainCard>
-            <TransactionDefault setFlag={setFlag} blockflag={blockflag} Time={Time} />
-          </MainCard>
-        </Grid>
-        <Grid item xs={6} md={6}>
-            <MempoolPage Flag={Flag} blockflag={blockflag} Time={Time} />
+        <Grid item>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <MainCard>
+                <TransactionDefault setFlag={setFlag} blockflag={blockflag} Time={Time} />
+              </MainCard>
+            </Grid>
+            <Grid item xs={12} md={6}>
+                <MempoolPage Flag={Flag} blockflag={blockflag} Time={Time} />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>

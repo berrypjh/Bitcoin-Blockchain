@@ -10,12 +10,12 @@ const PeerDefault = () => {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <MainCard>
             <PeerPage SuccessPeer={SuccessPeer} setSuccessPeer={setSuccessPeer} />
           </MainCard>
         </Grid>
-        <Grid item md={6}>
+        <Grid item xs={12} md={6}>
           <MainCard>
             <ConnectPeerPage SuccessPeer={SuccessPeer} />
           </MainCard>

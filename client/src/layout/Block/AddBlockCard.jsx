@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Axios from "axios";
-
+import { IconAxe } from '@tabler/icons';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
-import { Alert } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
+import ConstructionIcon from '@mui/icons-material/Construction';
 
 const AddBlockCard = (props) => {
   const { blockflag } = props;
@@ -35,9 +36,9 @@ const AddBlockCard = (props) => {
     });
     blockflag.setBlockFlag(false);
   };
-  const onSubmitAddBlock2 = (e) => {
+
+  const onSubmitAutoBlock = (e) => {
     e.preventDefault();
-    console.log(1111);
     Axios.post("/api/miningBlock").then((response) => {
       console.log(response);
       if (response.data.message === false) {
@@ -66,32 +67,40 @@ const AddBlockCard = (props) => {
         className="sendbutton"
         style={{width: "100%", display:"inline-block",fontSize: "13px", color: "gray"}}
       >
-       채굴하기
+       <IconAxe />
       </Button>
     </>
   );
-  const buttons2 = (
+
+  const Autobuttons = (
     <>
       <Button
         type="submit"
         color="secondary"
         variant="text"
         className="sendbutton"
-        style={{width: "100%", display:"inline-block",fontSize: "13px", color: "gray"}}
+        style={{ width: "100%", display:"inline-block",fontSize: "13px", color: "gray"}}
       >
-       자동 채굴하기
+       <ConstructionIcon />
       </Button>
     </>
   );
-
+  // md={6}
   return (
     <>
-      <form onSubmit={onSubmitAddBlock}>
-        {buttons}
-      </form>
-      <form onSubmit={onSubmitAddBlock2}>
-        {buttons2}
-      </form>
+      <Grid container spacing={2}>
+        <Grid item xs={5} md={9}></Grid>
+        <Grid item xs={3} md={1}>
+          <form onSubmit={onSubmitAddBlock}>
+            {buttons}
+          </form>
+        </Grid>
+        <Grid item xs={2} md={1}>
+          <form onSubmit={onSubmitAutoBlock}>
+            {Autobuttons}
+          </form>
+        </Grid>
+      </Grid>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={successOpen}
