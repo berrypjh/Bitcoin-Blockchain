@@ -15,7 +15,6 @@ const MempoolPage = (props) => {
   
   let TxOuts = (props) => {
     const txOutsArray = props.mempool.txOuts;
-    console.log(txOutsArray.length);
     return (
       <>
         {txOutsArray && txOutsArray.map((txOut, index) => {

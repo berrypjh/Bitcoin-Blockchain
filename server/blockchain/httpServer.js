@@ -69,7 +69,6 @@ router.get("/balance", (req, res) => {
 
 router.post("/addtransactions", (req, res) => {
   try {
-    console.log(req.body);
     const { address, amount } = req.body;
     const amountNumber = parseInt(amount);
     if (address === undefined || amount === undefined) {

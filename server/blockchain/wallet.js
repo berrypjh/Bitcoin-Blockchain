@@ -171,7 +171,6 @@ const findMyUTxOutsFromMyMempool = (myUTxO, mymempool) => {
     .map(tx => tx.txOutId)
     .value();
 
-    console.log(list);
   let utxo = [];
   for (let i = 0; i < list.length; i++) {
     utxo.push(findMyMempool(myUTxOList, list[i]));
