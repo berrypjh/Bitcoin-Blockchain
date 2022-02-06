@@ -115,7 +115,7 @@ const BlocksCard = (props) => {
     <>
       {Blocks && Blocks.map((block, index) => {
         return (
-          <Accordion key={block.header.index}>
+          <Accordion key={block.header.index} style={{width: '40vw'}}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2a-content"

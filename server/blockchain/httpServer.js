@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { addBlock, getBlocks, getVersion, newNextBlock, getUnspentTxOuts, getAccountBalance, sendTx } = require("./block");
+const { addBlock, getReverseBlocks, getVersion, newNextBlock, getUnspentTxOuts, getAccountBalance, sendTx } = require("./block");
 const { getMempool } = require("./memPool");
-const { connectToPeers, getSockets } = require("./p2pServer");
+const { connectToPeers, getSockets, mining } = require("./p2pServer");
 const { getBalance, getPublicKeyFromWallet } = require("./wallet");
 
 router.get("/blocks", (req, res) => {
-  res.send(getBlocks());
+  res.send(getReverseBlocks());
 });
 
 router.get("/utxos", (req, res) => {
@@ -20,6 +20,11 @@ router.post("/mineBlock", (req, res) => {
     return;
   };
   res.send({ message: true });
+});
+
+router.post("/miningBlock", (req, res) => {
+  let result = mining();
+  res.send({ message: result });
 });
 
 router.get("/version", (req, res) => {

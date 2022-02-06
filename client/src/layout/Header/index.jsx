@@ -4,8 +4,8 @@ import { Box } from '@mui/material';
 import LogoSection from '../LogoSection';
 import AddBlockCard from '../Block/AddBlockCard';
 
-const Header = () => {
-    const theme = useTheme();
+const Header = (props) => {
+    const { blockflag } = props;
 
     return (
         <>
@@ -30,7 +30,7 @@ const Header = () => {
                 }}
             >
                 <Box component="span">
-                    <AddBlockCard />
+                    <AddBlockCard blockflag={blockflag} />
                 </Box>
             </Box>
         </>

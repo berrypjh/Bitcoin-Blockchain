@@ -5,7 +5,9 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import { Alert } from "@mui/material";
 
-const AddBlockCard = () => {
+const AddBlockCard = (props) => {
+  const { blockflag } = props;
+  
   const [State, setState] = useState({
     successOpen: false,
     errorOpen: false,
@@ -29,7 +31,23 @@ const AddBlockCard = () => {
         return;
       };
       setState({ successOpen: true, ...newState });
+      blockflag.setBlockFlag(true);
     });
+    blockflag.setBlockFlag(false);
+  };
+  const onSubmitAddBlock2 = (e) => {
+    e.preventDefault();
+    console.log(1111);
+    Axios.post("/api/miningBlock").then((response) => {
+      console.log(response);
+      if (response.data.message === false) {
+        setState({ errorOpen: true, ...newState });
+        return;
+      };
+      setState({ successOpen: true, ...newState });
+      blockflag.setBlockFlag(true);
+    });
+    blockflag.setBlockFlag(false);
   };
   
   const handleClose = () => {
@@ -46,9 +64,22 @@ const AddBlockCard = () => {
         color="secondary"
         variant="text"
         className="sendbutton"
-        style={{width: "100%", fontSize: "13px", color: "gray"}}
+        style={{width: "100%", display:"inline-block",fontSize: "13px", color: "gray"}}
       >
        채굴하기
+      </Button>
+    </>
+  );
+  const buttons2 = (
+    <>
+      <Button
+        type="submit"
+        color="secondary"
+        variant="text"
+        className="sendbutton"
+        style={{width: "100%", display:"inline-block",fontSize: "13px", color: "gray"}}
+      >
+       자동 채굴하기
       </Button>
     </>
   );
@@ -57,6 +88,9 @@ const AddBlockCard = () => {
     <>
       <form onSubmit={onSubmitAddBlock}>
         {buttons}
+      </form>
+      <form onSubmit={onSubmitAddBlock2}>
+        {buttons2}
       </form>
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}

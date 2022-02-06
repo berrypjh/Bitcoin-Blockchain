@@ -72,6 +72,11 @@ const getBlocks = () => {
   return Blocks;
 };
 
+const getReverseBlocks = () => {
+  reverseBlocks = [...Blocks].reverse();
+  return reverseBlocks;
+};
+
 const getUnspentTxOuts = () => {
   return _.cloneDeep(unspentTxOuts);
 };
@@ -273,6 +278,7 @@ const handleIncomingTx = (tx) => {
 module.exports = {
   getLastBlock,
   createHash,
+  getReverseBlocks,
   getBlocks,
   getVersion,
   newNextBlock,

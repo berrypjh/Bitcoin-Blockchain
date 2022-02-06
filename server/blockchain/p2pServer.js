@@ -1,6 +1,6 @@
 const WebSocket = require("ws");
 const { WebSocketServer } = require("ws");
-const { addBlock, getLastBlock, createHash, getBlocks, replaceChain, handleIncomingTx } = require("./block");
+const { addBlock, getLastBlock, createHash, getBlocks, replaceChain, handleIncomingTx, newNextBlock } = require("./block");
 const { isValidBlockStructure } = require("./checkValidBlock");
 const { getMempool } = require("./memPool");
 
@@ -197,6 +197,18 @@ const broadcast = (message) => {
   });
 };
 
+const mining = () => {
+  let block;
+  setInterval(() => {
+    block = newNextBlock();
+    if(!addBlock(block)) {
+      return false;
+    };
+  }, 10000);
+
+  return true;
+}
+
 module.exports = {
   initP2PServer,
   connectToPeers,
@@ -204,4 +216,5 @@ module.exports = {
   broadcast,
   responseLatestMsg,
   returnMempool,
+  mining,
 };

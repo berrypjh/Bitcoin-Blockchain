@@ -4,14 +4,22 @@ import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import BlocksCard from "./BlocksCard";
 import TransactionCard from "./TransactionCard";
+import Clock from 'react-live-clock';
 
-const BlockDefault = () => {
+const BlockDefault = (props) => {
+  const { blockflag } = props;
+
   const [Blocks, setBlocks] = useState([]);
   const [Transaction, setTransaction] = useState([]);
+  const [Time, setTime] = useState("");
 
   let data = {
     Blocks,
     setTransaction,
+  };
+
+  let onFlag = (e) => {
+    setTime(e);
   };
 
   useEffect(() => {
@@ -19,10 +27,11 @@ const BlockDefault = () => {
       .then((response) => {
         setBlocks(response.data);
       })
-  }, []);
+  }, [blockflag, Time]);
   
   return (
     <>
+      <Clock style={{ display: "none" }} onChange={onFlag} ticking={true} timezone={'US/Pacific'}/>
       <Grid container spacing={2}>
         <Grid item md={6}>
           <BlocksCard data={data}/>

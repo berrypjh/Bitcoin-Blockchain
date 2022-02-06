@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from 'axios';
-import { FormControl, TextField } from "@mui/material";
+import { FormControl, TextField, Typography } from "@mui/material";
 
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
@@ -15,6 +15,7 @@ const TransactionDefault = (props) => {
     vertical: 'top',
     horizontal: 'center',
   });
+  const [Balance, setBalance] = useState(0);
 
   const { vertical, horizontal, successOpen, errorOpen } = State;
 
@@ -22,6 +23,13 @@ const TransactionDefault = (props) => {
     address: SendAddress,
     amount: Amount,
   };
+
+  useEffect(() => {
+    Axios.get("/api/balance")
+      .then((response) => {
+          setBalance(response.data.balance)
+      });
+  }, [props.blockflag, props.Time]);
 
   let newState = {
     vertical: 'top',
@@ -74,6 +82,9 @@ const TransactionDefault = (props) => {
 
   return (
     <>
+      <Typography variant="string" component="div" sx={{ mt: 1.25, fontSize: '1rem', marginBottom: '8px', fontWeight: 500, color: '#868f96' }}>
+        사용가능 : {Balance} BTC
+      </Typography>
       <form onSubmit={onSubmitAddBlock}>
         <FormControl component="block" sx={{ m: 1, width: '100%' }} variant="outlined">
           <TextField

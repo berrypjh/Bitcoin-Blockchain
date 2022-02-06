@@ -24,18 +24,10 @@ const utilities = {
             breadcrumbs: false
         },
         {
-            id: 'util-transaction',
-            title: '보내기',
-            type: 'item',
-            url: '/transaction',
-            icon: icons.IconBrandTelegram,
-            breadcrumbs: false
-        },
-        {
             id: 'util-Wallet',
             title: '거래내역',
             type: 'item',
-            url: '/wallet',
+            url: '/transaction',
             icon: icons.IconWallet,
             breadcrumbs: false
         },
