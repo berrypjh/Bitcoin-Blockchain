@@ -3,7 +3,7 @@ import Axios from "axios";
 import MainCard from "../../ui-component/MainCard";
 import { Divider, Typography } from "@mui/material";
 
-const DBTransactionPage = () => {
+const MyTransactionPage = () => {
   const [AAAA, setAAAA] = useState("");
 
   const onTxWalletChange = (e) => {
@@ -13,11 +13,11 @@ const DBTransactionPage = () => {
   return (
     <>
       <Typography variant="string" component="div" sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}>
-        DB 안의 모든 거래내역
+        사용 예정 트랜잭션
       </Typography>
       <Divider sx={{ mt: 0.25, mb: 0.25, marginTop: "10px" }} />
     </>
   );
 };
 
-export default DBTransactionPage;
+export default MyTransactionPage;

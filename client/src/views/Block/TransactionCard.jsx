@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Divider, Typography } from "@mui/material";
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const TransactionCard = (props) => {
@@ -12,7 +13,7 @@ const TransactionCard = (props) => {
     
     return (
       <>
-        {TxInArray && TxInArray.map((tx) => {
+        {TxInArray && TxInArray.map((tx, index) => {
           if (!tx.txOutId) {
             return (
               <>
@@ -25,6 +26,28 @@ const TransactionCard = (props) => {
             <>
               <Typography>txOutId : {tx.txOutId.match(/.{10}/g).join("\n")}</Typography>
               <Typography>txOutIndex : {tx.txOutIndex}</Typography>
+              {TxInArray.length - 1 > index && 
+                <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />
+              }
+            </>
+          );
+        })}
+      </>
+    )
+  }
+  const TxOutSection = (props) => {
+    let TxOutArray = props.tx.txOuts;
+    
+    return (
+      <>
+        {TxOutArray && TxOutArray.map((tx, index) => {
+          return (
+            <>
+              <Typography>address : {tx.address.match(/.{10}/g).join("\n")}</Typography>
+              <Typography>amount : {tx.amount}</Typography>
+              {TxOutArray.length - 1 > index && 
+                <Divider variant="middle" sx={{ mt: 1.25, mb: 1.25 }} />
+              }
             </>
           );
         })}
@@ -54,6 +77,12 @@ const TransactionCard = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <TxInSection tx={tx} />
+            </AccordionDetails>
+            <AccordionDetails style={{ textAlign: "center" }}>
+              <ArrowCircleDownIcon />
+            </AccordionDetails>
+            <AccordionDetails>
+              <TxOutSection tx={tx} />
             </AccordionDetails>
           </Accordion>
         );

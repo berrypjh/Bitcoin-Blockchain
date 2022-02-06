@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Accordion, AccordionDetails, AccordionSummary, Divider, Typography } from '@mui/material';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 
 const MempoolPage = (props) => {
   const [Mempools, setMempools] = useState([]);
@@ -42,9 +43,9 @@ const MempoolPage = (props) => {
       <>
         {txInsArray && txInsArray.map((txIn, index) => {
           return (
-            <div key={txIn.signature}>
+            <div key={index}>
               <Typography>
-                txOutId : {txIn.txOutId}
+                txOutId : {txIn.txOutId.match(/.{10}/g).join("\n")}
               </Typography>
               <Typography>
                 txOutIndex : {txIn.txOutIndex}
@@ -55,10 +56,10 @@ const MempoolPage = (props) => {
       </>
     );
   };
-  
+
   return (
     <>
-      {Mempools && Mempools.reverse().map((mempool, index) => {
+      {Mempools && Mempools.map((mempool, index) => {
         return (
           <Accordion key={mempool.id}>
             <AccordionSummary
@@ -74,7 +75,9 @@ const MempoolPage = (props) => {
               <Typography>
                 <TxIns mempool={mempool} />
               </Typography>
-              <Divider sx={{ mt: 1.25, mb: 1.25 }} />
+            <AccordionDetails style={{ textAlign: "center" }}>
+              <ArrowCircleDownIcon />
+            </AccordionDetails>
               <Typography>
                 <TxOuts mempool={mempool} />
               </Typography>

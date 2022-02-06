@@ -58,6 +58,7 @@ const AddBlockCard = (props) => {
     setState({ ...State, errorOpen: false });
   };
 
+  // 체굴 1번 (보여주기 용) 
   const buttons = (
     <>
       <Button
@@ -85,7 +86,7 @@ const AddBlockCard = (props) => {
       </Button>
     </>
   );
-  // md={6}
+  
   return (
     <>
       <Grid container spacing={2}>

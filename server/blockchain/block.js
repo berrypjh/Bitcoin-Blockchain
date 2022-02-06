@@ -3,7 +3,7 @@ const merkle = require('merkle');
 const cryptojs = require('crypto-js');
 const _ = require("lodash");
 const hexToBinary = require('hex-to-binary');
-const { getPublicKeyFromWallet, getBalance, createTx, getPrivateKeyFromWallet } = require('./wallet');
+const { getPublicKeyFromWallet, getBalance, createTx, getPrivateKeyFromWallet, findUnspentTxOuts } = require('./wallet');
 const { createCoinbaseTx } = require('./transaction');
 const { processTransactions, isAddressValid } = require('./checkValidTx');
 const { addToMempool, getMempool, updateMempool } = require('./memPool');
@@ -275,6 +275,10 @@ const handleIncomingTx = (tx) => {
   addToMempool(tx, unspentTxOuts);
 };
 
+const getMyUTXO = () => {
+  return findUnspentTxOuts(getPublicKeyFromWallet(), getUnspentTxOuts());
+};
+
 module.exports = {
   getLastBlock,
   createHash,
@@ -289,4 +293,5 @@ module.exports = {
   getAccountBalance,
   sendTx,
   handleIncomingTx,
+  getMyUTXO,
 };

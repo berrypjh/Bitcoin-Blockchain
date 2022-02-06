@@ -123,21 +123,18 @@ const BlocksCard = (props) => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                이전 Hash 값 : {block.header.previousHash.match(/.{10}/g).join("\n")}
-              </Typography>
-              <Typography>
                 Timestamp : {new Date((block.header.timestamp)*1000).toLocaleString()}
               </Typography>
               <Typography>
                 Height : {block.header.index}
               </Typography>
               <Typography>
-                Miner : 
-                <Miner block={block} />
+                Miner : &nbsp;
+                {block.header.index !== 0 ? <Miner block={block} /> : "Unknown"}
               </Typography>
               <Typography>
-                Number of Transactions : 
-                <Tx block={block} setTransaction={setTransaction} />
+                Number of Transactions : &nbsp;
+                {block.header.index !== 0 ? <Tx block={block} setTransaction={setTransaction} /> : 0}
               </Typography>
               <Typography>
                 Difficulty :  {block.header.difficulty}

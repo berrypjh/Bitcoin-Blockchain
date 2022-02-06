@@ -129,10 +129,17 @@ const createTx = (receiverAddress, amount, privateKey, uTxOutList, memPool) => {
   return tx;
 };
 
+const findUnspentTxOuts = (ownerAddress, unspentTxOuts) => {
+  return _.filter(
+    unspentTxOuts, uTxO => uTxO.address === ownerAddress
+  );
+};
+
 module.exports = {
   initWallet,
   getPublicKeyFromWallet,
   getPrivateKeyFromWallet,
   getBalance,
   createTx,
+  findUnspentTxOuts,
 };
