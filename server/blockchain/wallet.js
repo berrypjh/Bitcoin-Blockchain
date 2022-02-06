@@ -135,6 +135,55 @@ const findUnspentTxOuts = (ownerAddress, unspentTxOuts) => {
   );
 };
 
+const findMempool = (myunspentTxOuts, memPool) => {
+  return _.filter(
+    myunspentTxOuts, txOut => txOut.txOutId === memPool.txOutId
+  );
+};
+
+const findMyUTxOutsFromMempool = (myunspentTxOuts, memPool) => {
+  let list = _(memPool)
+    .map(tx => tx.txIns)
+    .flatten()
+    .value();
+
+  let utxo = [];
+  for (let i = 0; i < list.length; i++) {
+    utxo.push(findMempool(myunspentTxOuts, list[i]));
+  };
+
+  let utxoList = _(utxo)
+    .flatten()
+    .value();
+
+  return utxoList;
+};
+
+const findMyMempool = (myunspentTxOuts, memPool) => {
+  return _.filter(
+    myunspentTxOuts, txOut => txOut.txOutId === memPool
+  );
+};
+
+const findMyUTxOutsFromMyMempool = (myUTxO, mymempool) => {
+  const myUTxOList = myUTxO;
+  let list = _(mymempool)
+    .map(tx => tx.txOutId)
+    .value();
+
+    console.log(list);
+  let utxo = [];
+  for (let i = 0; i < list.length; i++) {
+    utxo.push(findMyMempool(myUTxOList, list[i]));
+  };
+
+  let utxoList = _(utxo)
+    .flatten()
+    .value();
+
+  return _.without(myUTxOList, ...utxoList);
+};
+
 module.exports = {
   initWallet,
   getPublicKeyFromWallet,
@@ -142,4 +191,6 @@ module.exports = {
   getBalance,
   createTx,
   findUnspentTxOuts,
+  findMyUTxOutsFromMempool,
+  findMyUTxOutsFromMyMempool,
 };

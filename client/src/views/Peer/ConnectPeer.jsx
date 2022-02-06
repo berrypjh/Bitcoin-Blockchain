@@ -11,7 +11,7 @@ const ConnectPeerPage = (props) => {
       
       {props.SuccessPeer && props.SuccessPeer.map((peer) => {
         return (
-          <Typography variant="string" component="div" sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}>
+          <Typography key={peer} variant="string" component="div" sx={{ mt: 1.25, fontSize: '1rem', fontWeight: 500, color: '#868f96' }}>
             {peer}
           </Typography>
         );

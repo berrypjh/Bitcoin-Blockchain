@@ -4,14 +4,14 @@ import MainCard from "../../ui-component/MainCard";
 import { Divider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
-const UnspentTransactionPage = () => {
+const UnspentTransactionPage = (props) => {
   const [MyUTXO, setMyUTXO] = useState([]);
 
   useEffect(() => {
     Axios.get("/api/myUnspentTransaction").then((response) => {
       setMyUTXO(response.data);
     });
-  }, []);
+  }, [props.Time]);
 
   return (
     <>

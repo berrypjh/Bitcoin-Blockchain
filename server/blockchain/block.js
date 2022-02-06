@@ -3,9 +3,9 @@ const merkle = require('merkle');
 const cryptojs = require('crypto-js');
 const _ = require("lodash");
 const hexToBinary = require('hex-to-binary');
-const { getPublicKeyFromWallet, getBalance, createTx, getPrivateKeyFromWallet, findUnspentTxOuts } = require('./wallet');
+const { getPublicKeyFromWallet, getBalance, createTx, getPrivateKeyFromWallet, findUnspentTxOuts, findMyUTxOutsFromMempool, findMyUTxOutsFromMyMempool } = require('./wallet');
 const { createCoinbaseTx } = require('./transaction');
-const { processTransactions, isAddressValid } = require('./checkValidTx');
+const { processTransactions } = require('./checkValidTx');
 const { addToMempool, getMempool, updateMempool } = require('./memPool');
 
 const BLOCK_GENERATION_INTERVAL = 10;
@@ -275,8 +275,16 @@ const handleIncomingTx = (tx) => {
   addToMempool(tx, unspentTxOuts);
 };
 
-const getMyUTXO = () => {
+const getMyUTxO = () => {
   return findUnspentTxOuts(getPublicKeyFromWallet(), getUnspentTxOuts());
+};
+
+const gefindMyUTxOutsFromMempool = () => {
+  return findMyUTxOutsFromMempool(getMyUTxO(), getMempool());
+};
+
+const getFindMyUTxO = () => {
+  return findMyUTxOutsFromMyMempool(getMyUTxO(), gefindMyUTxOutsFromMempool());
 };
 
 module.exports = {
@@ -293,5 +301,6 @@ module.exports = {
   getAccountBalance,
   sendTx,
   handleIncomingTx,
-  getMyUTXO,
+  getFindMyUTxO,
+  gefindMyUTxOutsFromMempool,
 };

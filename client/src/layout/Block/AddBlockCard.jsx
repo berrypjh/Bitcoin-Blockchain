@@ -26,7 +26,6 @@ const AddBlockCard = (props) => {
   const onSubmitAddBlock = (e) => {
     e.preventDefault();
     Axios.post("/api/mineBlock").then((response) => {
-      console.log(response);
       if (response.data.message === false) {
         setState({ errorOpen: true, ...newState });
         return;
@@ -40,7 +39,6 @@ const AddBlockCard = (props) => {
   const onSubmitAutoBlock = (e) => {
     e.preventDefault();
     Axios.post("/api/miningBlock").then((response) => {
-      console.log(response);
       if (response.data.message === false) {
         setState({ errorOpen: true, ...newState });
         return;

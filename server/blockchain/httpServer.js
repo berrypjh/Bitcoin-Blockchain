@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addBlock, getReverseBlocks, getVersion, newNextBlock, getUnspentTxOuts, getAccountBalance, sendTx, getMyUTXO } = require("./block");
+const { addBlock, getReverseBlocks, getVersion, newNextBlock, getUnspentTxOuts, getAccountBalance, sendTx, getFindMyUTxO, gettt, gefindMyUTxOutsFromMempool } = require("./block");
 const { getMempool } = require("./memPool");
 const { connectToPeers, getSockets, mining } = require("./p2pServer");
 const { getBalance, getPublicKeyFromWallet } = require("./wallet");
@@ -89,7 +89,11 @@ router.get("/transactionPool", (req, res) => {
 });
 
 router.get("/myUnspentTransaction", (req, res) => {
-  res.send(getMyUTXO());
+  res.send(getFindMyUTxO());
+});
+
+router.get("/myMempool", (req, res) => {
+  res.send(gefindMyUTxOutsFromMempool());
 });
 
 module.exports = router;
