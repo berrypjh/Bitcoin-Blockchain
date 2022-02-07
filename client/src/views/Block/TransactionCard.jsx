@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Divider, Typography } from "@mui/material";
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';

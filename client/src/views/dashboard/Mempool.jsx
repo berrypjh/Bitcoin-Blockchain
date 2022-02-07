@@ -11,7 +11,7 @@ const MempoolPage = (props) => {
     Axios.get("/api/transactionPool").then((response) => {
       setMempools(response.data);
     });
-  }, [props.Flag, props.blockflag, props.Time]);
+  }, [props.Flag, props.Time]);
   
   let TxOuts = (props) => {
     const txOutsArray = props.mempool.txOuts;

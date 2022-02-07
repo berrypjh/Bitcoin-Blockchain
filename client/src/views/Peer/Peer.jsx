@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Divider, FormControl, TextField, Typography } from "@mui/material";
+import { FormControl, TextField } from "@mui/material";
 import Axios from 'axios';
 
 import Button from '@mui/material/Button';
@@ -32,7 +32,7 @@ const PeerPage = (props) => {
     Axios.get("/api/peers").then((response) => {
       props.setSuccessPeer(response.data.peer);
     });
-  }, []);
+  }, [props]);
 
   const onSubmitAddPeer = (e) => {
     e.preventDefault();
@@ -97,7 +97,7 @@ const PeerPage = (props) => {
               label="연결 대상 :"
               autoFocus
               id="outlined-start-adornment"
-              sx={{ width: '40vw', height: '60px', width: "100%", marginLeft: "-1.5%" }}
+              sx={{ height: '60px', width: "100%", marginLeft: "-1.5%" }}
               value={Peer}
               onChange={onPeerChange}
               placeholder={"4자리 숫자를 입력해주세요."}

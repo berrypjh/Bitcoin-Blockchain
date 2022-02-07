@@ -7,8 +7,7 @@ import MainAddressPage from './mainAddress';
 import MempoolPage from './Mempool';
 import TransactionDefault from './Transaction';
 
-const Dashboard = (props) => {
-  const { blockflag } = props;
+const Dashboard = () => {
   const [Flag, setFlag] = useState(false);
   const [Time, setTime] = useState("");
 
@@ -29,11 +28,11 @@ const Dashboard = (props) => {
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <MainCard>
-                <TransactionDefault setFlag={setFlag} blockflag={blockflag} Time={Time} />
+                <TransactionDefault setFlag={setFlag} Time={Time} />
               </MainCard>
             </Grid>
             <Grid item xs={12} md={6}>
-                <MempoolPage Flag={Flag} blockflag={blockflag} Time={Time} />
+                <MempoolPage Flag={Flag} Time={Time} />
             </Grid>
           </Grid>
         </Grid>

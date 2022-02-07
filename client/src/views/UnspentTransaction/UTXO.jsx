@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import MainCard from "../../ui-component/MainCard";
 import { Divider, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 

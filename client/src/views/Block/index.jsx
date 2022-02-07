@@ -6,9 +6,7 @@ import BlocksCard from "./BlocksCard";
 import TransactionCard from "./TransactionCard";
 import Clock from 'react-live-clock';
 
-const BlockDefault = (props) => {
-  const { blockflag } = props;
-
+const BlockDefault = () => {
   const [Blocks, setBlocks] = useState([]);
   const [Transaction, setTransaction] = useState([]);
   const [Time, setTime] = useState("");
@@ -27,7 +25,7 @@ const BlockDefault = (props) => {
       .then((response) => {
         setBlocks(response.data);
       })
-  }, [blockflag, Time]);
+  }, [Time]);
   
   return (
     <>

@@ -5,8 +5,7 @@ import Header from './Header';
 import Sidebar from './Sidebar/sidebar';
 import { Outlet } from 'react-router-dom';
 
-const MainLayout = (props) => {
-    const { blockflag } = props;
+const MainLayout = () => {
     const theme = useTheme();
 
     return (
@@ -22,7 +21,7 @@ const MainLayout = (props) => {
                 }}
             >
                 <Toolbar sx={{ height: 0 }} style={{ padding: 0 }} >
-                    <Header blockflag={blockflag} />
+                    <Header />
                 </Toolbar>
                 <Divider sx={{ mt: 0.25, mb: 1.25 }} />
                 <Toolbar style={{ padding: 0, marginTop: "-5px" }} >

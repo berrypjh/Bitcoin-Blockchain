@@ -29,7 +29,7 @@ const TransactionDefault = (props) => {
       .then((response) => {
           setBalance(response.data.balance)
       });
-  }, [props.blockflag, props.Time]);
+  }, [props.Time]);
 
   let newState = {
     vertical: 'top',
@@ -91,7 +91,7 @@ const TransactionDefault = (props) => {
             label="송금할 대상 :"
             autoFocus
             id="outlined-start-adornment"
-            sx={{ width: '40vw', height: '60px', width: "100%", marginLeft: "-1.5%" }}
+            sx={{ height: '60px', width: "100%", marginLeft: "-1.5%" }}
             value={SendAddress}
             onChange={onSendAddressChange}
             placeholder={"코인 주소를 입력하세요 (예: 044f732ce133baf8bb06e21b75f9114790b...)"}
@@ -101,7 +101,7 @@ const TransactionDefault = (props) => {
           <TextField
             label="금액 :"
             id="amount"
-            sx={{ width: '40vw', height: '80px', width: "100%", marginLeft: "-1.5%" }}
+            sx={{ height: '80px', width: "100%", marginLeft: "-1.5%" }}
             value={Amount}
             onChange={onAmountChange}
             placeholder={"0"}
