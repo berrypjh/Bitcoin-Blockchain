@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require('morgan');
 const { initP2PServer } = require("./blockchain/p2pServer");
 const { initWallet } = require("./blockchain/wallet");
 const BlockChainRouter = require('./blockchain/httpServer');
@@ -8,6 +9,7 @@ const P2P_PORT = process.env.P2P_PORT || 6000;
 
 const initHttpServer = () => {
   const app = express();
+  app.use(morgan('dev'));
   app.use(express.json());
 
   app.use("/api", BlockChainRouter);
