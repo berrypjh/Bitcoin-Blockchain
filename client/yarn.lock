@@ -1465,7 +1465,7 @@
     prop-types "^15.7.2"
     react-is "^17.0.2"
 
-"@mui/icons-material@^5.0.0", "@mui/icons-material@^5.4.1":
+"@mui/icons-material@^5.0.0", "@mui/icons-material@^5.2.5":
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.4.1.tgz#20901e9a09154355b7a832180a90717938c675c4"
   integrity sha512-koiq9q2GfjXRUWcC5fEi1b+EA4vfJHgIaAdBHlkOrBx2cnmmazQcyib501eodPfaZGx9BikrhivODaNQYQq8hA==
@@ -1508,10 +1508,10 @@
     "@mui/utils" "^5.4.1"
     prop-types "^15.7.2"
 
-"@mui/styled-engine-sc@^5.1.0":
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.3.0.tgz#4e63e1d2b1a74ea5b422f8b1e12140d8f9356ce9"
-  integrity sha512-dASXl3Xn56tGtDBJC61G4dxsfkkgYaVsqEBqNfmi3NxUjXT7Tlz/wr4FVFJARZ7Fef0NYWNE8sb+exfGecjXyA==
+"@mui/styled-engine-sc@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.4.1.tgz#e52c9c1f330c8f2fb2ebf2acccbda8287cfbbb2d"
+  integrity sha512-7PPSwPh7Kugdapi5uQ/1PojZ6hVPpF4mB77pTm8BMm+WT/noRv3ESfAEP4Ic51LZWy95oeK0GgqsyPRjDiyHLA==
   dependencies:
     prop-types "^15.7.2"
 
