@@ -34,7 +34,7 @@ const isValidNewBlock = (newBlock, previousBlock) => {
   return true;
 };
 
-function isValidTimestamp(newBlock, previousBlock) {
+const isValidTimestamp = (newBlock, previousBlock) => {
   return (
     previousBlock.header.timestamp - 60 < newBlock.header.timestamp &&
     newBlock.header.timestamp - 60 < getTimestamp()
