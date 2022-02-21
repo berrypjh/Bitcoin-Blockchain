@@ -1787,10 +1787,10 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@tabler/icons@^1.51.0":
-  version "1.53.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.53.0.tgz#51536e01b343cfaf26b701df306b2c0369769e3c"
-  integrity sha512-Skk1BqXEOEhiRsXJgZBYtjFa/+4dMSFA5UyzTUW20oyyUSd3iizhEWrYt0jT87iFu771gWoqVV2/OGobBcGjgQ==
+"@tabler/icons@^1.54.0":
+  version "1.54.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.54.0.tgz#c8cf4e777e61b19004d0e21443c9a7fae31d70c4"
+  integrity sha512-X0SjUMWlu6IWsWIZP6gtMZhi9Q7pO2+BQ9vex28rOu+gtym7fZjnDXWG0okzVhtt4mlOwJ2BHQllRky29lsn7Q==
 
 "@testing-library/dom@^8.0.0":
   version "8.11.3"
@@ -4609,7 +4609,7 @@ fraction.js@^4.1.2:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.1.2.tgz#13e420a92422b6cf244dff8690ed89401029fbe8"
   integrity sha512-o2RiJQ6DZaR/5+Si0qJUIy637QMRudSi9kU/FFzx9EZazrIdnBgpU+3sEWCxAVhH2RtxW2Oz+T4p2o8uOPVcgA==
 
-framer-motion@^6.2.6:
+framer-motion@^6.2.4:
   version "6.2.6"
   resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-6.2.6.tgz#75277b4944a1234beaf7453da19028bbf4f75cce"
   integrity sha512-7eGav5MxEEzDHozQTDY6+psTIOw2i2kM1QVoJOC3bCp9VOKoo+mKR5n7aT5JPh7ksEKFYJYz0GJDils/9S+oLA==
