@@ -1472,7 +1472,7 @@
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@mui/material@^5.0.0", "@mui/material@^5.5.2":
+"@mui/material@^5.0.0", "@mui/material@^5.4.4":
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.5.2.tgz#9cea96abda87bed51d435e8676d5bfad99750b8a"
   integrity sha512-r4p1u9eDlSqW3TS/Iq9yolifWHpuW6e0BSeqEJW3EEIcKfPVVk4WNUNJ+s8DtN7dBoDcveXxcQVVjYXTIv1d9g==
@@ -1787,10 +1787,10 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@tabler/icons@^1.51.0":
-  version "1.53.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.53.0.tgz#51536e01b343cfaf26b701df306b2c0369769e3c"
-  integrity sha512-Skk1BqXEOEhiRsXJgZBYtjFa/+4dMSFA5UyzTUW20oyyUSd3iizhEWrYt0jT87iFu771gWoqVV2/OGobBcGjgQ==
+"@tabler/icons@^1.59.0":
+  version "1.59.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.59.0.tgz#b059bbadce29a4e6d429ae0683cad54ad0b5527c"
+  integrity sha512-u/Z7jDB8wWWTFR0q84IdAQEpUvNWHESvj3Y9WNwQak4NrXoUnPp1JVXd0ek6IX3RxWMeKE79qj5/id2yVjGM/g==
 
 "@testing-library/dom@^8.0.0":
   version "8.11.3"
