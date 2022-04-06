@@ -1486,7 +1486,7 @@
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@mui/material@^5.0.0", "@mui/material@^5.4.4":
+"@mui/material@^5.0.0":
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.5.2.tgz#9cea96abda87bed51d435e8676d5bfad99750b8a"
   integrity sha512-r4p1u9eDlSqW3TS/Iq9yolifWHpuW6e0BSeqEJW3EEIcKfPVVk4WNUNJ+s8DtN7dBoDcveXxcQVVjYXTIv1d9g==
@@ -1539,6 +1539,16 @@
     "@babel/runtime" "^7.17.2"
     "@mui/utils" "^5.4.4"
     prop-types "^15.7.2"
+
+"@mui/private-theming@^5.5.3":
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/@mui/private-theming/-/private-theming-5.6.0.tgz#b907e055a0a19caf554d5b43209a143edaa9b398"
+  integrity sha512-62jUFaMGfW3nvq/worcOAEiY++rWd44tpWShq4o97DybWmmWvEFYlBIuHEcXrtBIK/cloaQw8jqelQIFZeiVdw==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "@mui/utils" "^5.6.0"
+    prop-types "^15.7.2"
+
 "@mui/styled-engine-sc@^5.5.2":
   version "5.5.2"
   resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.5.2.tgz#d35d3b226f79d051181bf098276a90ba718e474d"
@@ -1626,6 +1636,17 @@
   version "5.5.3"
   resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-5.5.3.tgz#f6e1f10c0e8f4d0bf750588c2c3a96ad819c5b65"
   integrity sha512-t627eVRpl3SlxVya0cIVNs8jPl4KCEiGaTSWY9iKKTcMNaeDbuRML+zv/CFHDPr1zFv+FjJSP02ySB+tZ8xIag==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "@types/prop-types" "^15.7.4"
+    "@types/react-is" "^16.7.1 || ^17.0.0"
+    prop-types "^15.7.2"
+    react-is "^17.0.2"
+
+"@mui/utils@^5.6.0":
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-5.6.0.tgz#0ec741f5ac7c89ac76054832bed2d6e17ab1c011"
+  integrity sha512-LbZKkCOn4243vbEVGbaKV7t6eN6kz7t95DR6AcUCRk4daH3l7CXPYkWsyzysRWdXgSzHmIyrgg4FZKzTy0dTHQ==
   dependencies:
     "@babel/runtime" "^7.17.2"
     "@types/prop-types" "^15.7.4"
@@ -1843,10 +1864,10 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@tabler/icons@^1.61.0":
-  version "1.61.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.61.0.tgz#630d42f15e603b97a4a3e1f5c3b23ed7e2c50eb5"
-  integrity sha512-5Cc9jibY3TeGntH4rt1ZKYpivCFCRyDUGKQhaa2jbhF1Csf/7mNExVTkfkE0mC8O1D3Y3H4vcLYtJr1P31H6MA==
+"@tabler/icons@^1.51.0":
+  version "1.63.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-1.63.0.tgz#7cf1dffb279ac09031d616948774019910998850"
+  integrity sha512-CrtwngpsKcRBUBT5kbNKJS5UDJkexK4povE/5FOJv1EmNdFLN+cFMfkd2wy55zKSiTMZTNnSV9HYIZgvc6g23A==
 
 "@testing-library/dom@^8.0.0":
   version "8.11.3"
@@ -7624,10 +7645,10 @@ react-perfect-scrollbar@^1.5.8:
     perfect-scrollbar "^1.5.0"
     prop-types "^15.6.1"
 
-react-redux@^7.2.6:
-  version "7.2.6"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.6.tgz#49633a24fe552b5f9caf58feb8a138936ddfe9aa"
-  integrity sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ==
+react-redux@^7.2.8:
+  version "7.2.8"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.8.tgz#a894068315e65de5b1b68899f9c6ee0923dd28de"
+  integrity sha512-6+uDjhs3PSIclqoCk0kd6iX74gzrGc3W5zcAjbrFgEdIjRSQObdIwfx80unTkVUYvbQ95Y8Av3OvFHq1w5EOUw==
   dependencies:
     "@babel/runtime" "^7.15.4"
     "@types/react-redux" "^7.1.20"
