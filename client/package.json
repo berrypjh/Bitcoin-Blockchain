@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.8.2",
+    "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.5.1",
-    "@mui/material": "^5.6.0",
+    "@mui/icons-material": "^5.6.0",
+    "@mui/material": "^5.4.4",
     "@mui/styled-engine-sc": "^5.5.2",
     "@tabler/icons": "^1.51.0",
-    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
@@ -56,6 +56,6 @@
   },
   "devDependencies": {
     "html-webpack-plugin": "^5.5.0",
-    "sass": "^1.49.9"
+    "sass": "^1.49.11"
   }
 }
