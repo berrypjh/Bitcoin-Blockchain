@@ -56,6 +56,6 @@
   },
   "devDependencies": {
     "html-webpack-plugin": "^5.5.0",
-    "sass": "^1.49.9"
+    "sass": "^1.49.11"
   }
 }
