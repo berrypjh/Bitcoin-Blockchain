@@ -23,7 +23,7 @@ yarn run dev-peer
 yarn run dev-peer2
 ```
 
-### 목차
+## 목차
 1. BlockChain 만들기 : 
 https://berrypjh.tistory.com/66?category=1048753
 2. 새 블록 검증 과정 : 
