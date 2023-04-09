@@ -1,21 +1,19 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid } from "@mui/material";
 
-import LogoSection from '../LogoSection';
-import AddBlockCard from '../Block/AddBlockCard';
+import LogoSection from "../LogoSection";
+import AddBlockCard from "../Block/AddBlockCard";
 
-const Header = (props) => {
-  const { blockflag } = props;
-
+const Header = () => {
   return (
     <>
       <Grid container spacing={2}>
         <Grid item xs={2}>
           <Box
             style={{
-                width: 128,
-                paddingTop: "10px",
-                paddingLeft: "28px",
-                paddingBottom: "1px",
+              width: 128,
+              paddingTop: "10px",
+              paddingLeft: "28px",
+              paddingBottom: "1px",
             }}
           >
             <Box component="span">
@@ -23,10 +21,9 @@ const Header = (props) => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={4}>
-        </Grid>
+        <Grid item xs={4}></Grid>
         <Grid item xs={6}>
-          <AddBlockCard blockflag={blockflag} />
+          <AddBlockCard />
         </Grid>
       </Grid>
     </>
